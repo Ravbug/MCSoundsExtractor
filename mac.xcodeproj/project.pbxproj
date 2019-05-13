@@ -319,8 +319,8 @@
 		AA1D0F50222A09A600678304 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				4126FAD02288FD1300C42786 /* interface.cpp */,
 				4126FAEA2288FD1300C42786 /* interface.h */,
+				4126FAD02288FD1300C42786 /* interface.cpp */,
 				AA012113224C24D4000F4F82 /* wxmac.icns */,
 				AAF9D87A222B14E900437548 /* Info_cocoa.plist */,
 				AAF9D87B222B14E900437548 /* main.cpp */,

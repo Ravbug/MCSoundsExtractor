@@ -31,10 +31,15 @@
 ///////////////////////////////////////////////////////////////////////////////
 /// Class mainFrame
 ///////////////////////////////////////////////////////////////////////////////
+enum{
+    ID_App=1
+};
 class mainFrame : public wxFrame
 {
 	private:
-
+        void OnExit(wxCommandEvent& event);
+        void OnAbout(wxCommandEvent& event);
+        wxDECLARE_EVENT_TABLE();
 	protected:
 		wxStaticText* label_1;
 		wxTextCtrl* txt_mcDir;
@@ -54,4 +59,3 @@ class mainFrame : public wxFrame
 		~mainFrame();
 
 };
-
