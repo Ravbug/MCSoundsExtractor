@@ -363,4 +363,4 @@ wxWidgets/build/linux/
 
 # Mac OS temporary and compiled data
 *.DS_STORE
-wxWidgets/build/osx/*
+wxWidgets/build/osx/setup/*
