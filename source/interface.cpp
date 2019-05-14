@@ -1,13 +1,13 @@
 ///////////////////////////////////////////////////////////////////////////
 // C++ code generated with wxFormBuilder (version Oct 26 2018)
 // http://www.wxformbuilder.org/
-//
-// PLEASE DO *NOT* EDIT THIS FILE!
-///////////////////////////////////////////////////////////////////////////
+
 
 #include "interface.h"
-
-///////////////////////////////////////////////////////////////////////////
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
+#include <string>
 
 //Constructor for the Frame
 mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
@@ -27,6 +27,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 
     //minecraft directory text field
 	txt_mcDir = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+    txt_mcDir->SetEditable(false);
 	gb_main->Add( txt_mcDir, wxGBPosition( 1, 0 ), wxGBSpan( 1, 1 ), wxALL|wxEXPAND, 5 );
 
     //choose button for minecraft directory
@@ -40,6 +41,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 
     //output folder text field
 	txt_outDir = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+    txt_outDir->SetEditable(false);
 	gb_main->Add( txt_outDir, wxGBPosition( 3, 0 ), wxGBSpan( 1, 1 ), wxALL|wxEXPAND, 5 );
 
     //choose button for output folder
@@ -76,8 +78,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
     
     //menu bar
     wxMenu *menuFile = new wxMenu;
-    menuFile->Append(ID_App, "&Hello...\tCtrl-H",
-                     "Help string shown in status bar for this menu item");
+    menuFile->Append(ID_App, "&Hello...\tCtrl-H","Help string shown in status bar for this menu item");
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT);
     wxMenu *menuHelp = new wxMenu;
@@ -86,6 +87,9 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
     menuBar->Append( menuFile, "&File" );
     menuBar->Append( menuHelp, "&Help" );
     SetMenuBar( menuBar );
+    
+    //load defaults
+    this->SetPlatformSpecificData();
     
 }
 
@@ -109,4 +113,18 @@ void mainFrame::OnAbout(wxCommandEvent& event)
 {
     wxMessageBox( "Fill in description text",
                  "About Minecraft Sounds Extractor", wxOK | wxICON_INFORMATION );
+}
+
+//sets the 2 text fields with starter data
+void mainFrame::SetPlatformSpecificData(){
+    struct passwd *pw = getpwuid(getuid());
+    const char *homedir = pw->pw_dir;
+#ifdef __APPLE__
+    txt_mcDir->ChangeValue(wxString(homedir)+wxString("/Library/Application Support/minecraft"));
+#elif _WIN32
+    txt_mcDir->ChangeValue(wxString(homedir)+wxString("/Appdata/Roaming/.minecraft"));
+#elif __linux__
+    txt_mcDir->ChangeValue(wxString(homedir)+wxString("/.minecraft"));
+#endif
+    txt_outDir->ChangeValue(wxString(homedir)+wxString("/Desktop"));
 }

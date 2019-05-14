@@ -40,6 +40,7 @@ class mainFrame : public wxFrame
         void OnExit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
         wxDECLARE_EVENT_TABLE();
+        void SetPlatformSpecificData();
 	protected:
 		wxStaticText* label_1;
 		wxTextCtrl* txt_mcDir;
@@ -51,11 +52,9 @@ class mainFrame : public wxFrame
 		wxChoice* choice_mcVersion;
 		wxButton* btn_extract;
 		wxGauge* progressBar;
-
 	public:
 
 		mainFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Minecraft Sounds Extractor"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,250 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
 		~mainFrame();
-
 };

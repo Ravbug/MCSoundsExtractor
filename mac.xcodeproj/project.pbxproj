@@ -803,7 +803,7 @@
 					"\"$(WXROOT)/src/tiff/libtiff\"",
 					"\"$(WXROOT)/src/regex\"",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/wxWidgets/samples/minimal/Info_cocoa.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/source/Info_cocoa.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -837,7 +837,7 @@
 					"\"$(WXROOT)/src/tiff/libtiff\"",
 					"\"$(WXROOT)/src/regex\"",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/wxWidgets/samples/minimal/Info_cocoa.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/source/Info_cocoa.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
