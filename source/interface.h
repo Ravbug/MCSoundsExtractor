@@ -24,6 +24,8 @@
 #include "wx/gauge.h"
 #include "wx/gbsizer.h"
 #include "wx/frame.h"
+#include "wx/menu.h"
+#include "wx/msgdlg.h"
 
 ///////////////////////////////////////////////////////////////////////////
 
