@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4126FAEB2288FD1300C42786 /* interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4126FAD02288FD1300C42786 /* interface.cpp */; };
-		4126FAEC2288FD1300C42786 /* interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4126FAD02288FD1300C42786 /* interface.cpp */; };
 		AA012114224C24D4000F4F82 /* wxmac.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA012113224C24D4000F4F82 /* wxmac.icns */; };
 		AA012115224C24D4000F4F82 /* wxmac.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA012113224C24D4000F4F82 /* wxmac.icns */; };
 		AA14A0EE222A1217002C4553 /* libwx_osx_cocoa.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = AA1D0F81222A0A1D00678304 /* libwx_osx_cocoa.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -16,7 +14,10 @@
 		AA1D0FCC222A0A4B00678304 /* wxrelease.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AA1D0FC9222A0A4A00678304 /* wxrelease.xcconfig */; };
 		AA1D0FCD222A0A4B00678304 /* wxcocoa.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AA1D0FCA222A0A4B00678304 /* wxcocoa.xcconfig */; };
 		AA1D0FCE222A0A4B00678304 /* wxdebug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AA1D0FCB222A0A4B00678304 /* wxdebug.xcconfig */; };
-		AAD015C0222B2FE300E25CB7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAF9D87B222B14E900437548 /* main.cpp */; };
+		AAA17BEB228DE6EA00ABED6C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA17BEA228DE6EA00ABED6C /* main.cpp */; };
+		AAA17BEC228DE6EA00ABED6C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA17BEA228DE6EA00ABED6C /* main.cpp */; };
+		AAA17BEE228DE72300ABED6C /* interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA17BED228DE72300ABED6C /* interface.cpp */; };
+		AAA17BEF228DE72300ABED6C /* interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAA17BED228DE72300ABED6C /* interface.cpp */; };
 		AAD015C4222B2FE300E25CB7 /* wxrelease.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AA1D0FC9222A0A4A00678304 /* wxrelease.xcconfig */; };
 		AAD015C5222B2FE300E25CB7 /* wxcocoa.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AA1D0FCA222A0A4B00678304 /* wxcocoa.xcconfig */; };
 		AAD015C6222B2FE300E25CB7 /* Info_cocoa.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAF9D87A222B14E900437548 /* Info_cocoa.plist */; };
@@ -31,7 +32,6 @@
 		AADF6A31222B360700991DD2 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AADF6A30222B360700991DD2 /* AppKit.framework */; };
 		AADF6A33222B360C00991DD2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AADF6A32222B360C00991DD2 /* Foundation.framework */; };
 		AAF9D87C222B14E900437548 /* Info_cocoa.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAF9D87A222B14E900437548 /* Info_cocoa.plist */; };
-		AAF9D87D222B14E900437548 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAF9D87B222B14E900437548 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,15 +234,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4126FAD02288FD1300C42786 /* interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interface.cpp; sourceTree = "<group>"; };
-		4126FAEA2288FD1300C42786 /* interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interface.h; sourceTree = "<group>"; };
 		AA012113224C24D4000F4F82 /* wxmac.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = wxmac.icns; sourceTree = "<group>"; };
-		AA1D0F4E222A09A600678304 /* Minecraft Sounds Extractor (Dynamic).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Minecraft Sounds Extractor (Dynamic).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA1D0F4E222A09A600678304 /* macDynamic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macDynamic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA1D0F63222A0A1D00678304 /* wxcocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = wxcocoa.xcodeproj; path = wxWidgets/build/osx/wxcocoa.xcodeproj; sourceTree = SOURCE_ROOT; };
 		AA1D0FC9222A0A4A00678304 /* wxrelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = wxrelease.xcconfig; path = wxWidgets/build/osx/wxrelease.xcconfig; sourceTree = SOURCE_ROOT; };
 		AA1D0FCA222A0A4B00678304 /* wxcocoa.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = wxcocoa.xcconfig; path = wxWidgets/build/osx/wxcocoa.xcconfig; sourceTree = SOURCE_ROOT; };
 		AA1D0FCB222A0A4B00678304 /* wxdebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = wxdebug.xcconfig; path = wxWidgets/build/osx/wxdebug.xcconfig; sourceTree = SOURCE_ROOT; };
-		AAD015CD222B2FE300E25CB7 /* Minecraft Sounds Extractor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Minecraft Sounds Extractor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAA17BD0228DE6EA00ABED6C /* interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interface.h; sourceTree = "<group>"; };
+		AAA17BEA228DE6EA00ABED6C /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		AAA17BED228DE72300ABED6C /* interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interface.cpp; sourceTree = "<group>"; };
+		AAD015CD222B2FE300E25CB7 /* macStatic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macStatic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADF6A0B222B359700991DD2 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		AADF6A26222B35B300991DD2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		AADF6A28222B35DA00991DD2 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -252,7 +253,6 @@
 		AADF6A30222B360700991DD2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		AADF6A32222B360C00991DD2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AAF9D87A222B14E900437548 /* Info_cocoa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info_cocoa.plist; path = source/Info_cocoa.plist; sourceTree = SOURCE_ROOT; };
-		AAF9D87B222B14E900437548 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = source/main.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,12 +306,13 @@
 				AA14A0F2222A1219002C4553 /* Frameworks */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		AA1D0F4F222A09A600678304 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AA1D0F4E222A09A600678304 /* Minecraft Sounds Extractor (Dynamic).app */,
-				AAD015CD222B2FE300E25CB7 /* Minecraft Sounds Extractor.app */,
+				AA1D0F4E222A09A600678304 /* macDynamic.app */,
+				AAD015CD222B2FE300E25CB7 /* macStatic.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -319,11 +320,11 @@
 		AA1D0F50222A09A600678304 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				4126FAEA2288FD1300C42786 /* interface.h */,
-				4126FAD02288FD1300C42786 /* interface.cpp */,
 				AA012113224C24D4000F4F82 /* wxmac.icns */,
 				AAF9D87A222B14E900437548 /* Info_cocoa.plist */,
-				AAF9D87B222B14E900437548 /* main.cpp */,
+				AAA17BED228DE72300ABED6C /* interface.cpp */,
+				AAA17BD0228DE6EA00ABED6C /* interface.h */,
+				AAA17BEA228DE6EA00ABED6C /* main.cpp */,
 				AA1D0FCA222A0A4B00678304 /* wxcocoa.xcconfig */,
 				AA1D0FCB222A0A4B00678304 /* wxdebug.xcconfig */,
 				AA1D0FC9222A0A4A00678304 /* wxrelease.xcconfig */,
@@ -367,9 +368,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AA1D0F4D222A09A600678304 /* Minecraft Sounds Extractor (Dynamic) */ = {
+		AA1D0F4D222A09A600678304 /* macDynamic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA1D0F5F222A09A800678304 /* Build configuration list for PBXNativeTarget "Minecraft Sounds Extractor (Dynamic)" */;
+			buildConfigurationList = AA1D0F5F222A09A800678304 /* Build configuration list for PBXNativeTarget "macDynamic" */;
 			buildPhases = (
 				AA1D0F4A222A09A600678304 /* Sources */,
 				AA1D0F4B222A09A600678304 /* Frameworks */,
@@ -381,14 +382,14 @@
 			dependencies = (
 				AA14A0F0222A1217002C4553 /* PBXTargetDependency */,
 			);
-			name = "Minecraft Sounds Extractor (Dynamic)";
+			name = macDynamic;
 			productName = wxTest;
-			productReference = AA1D0F4E222A09A600678304 /* Minecraft Sounds Extractor (Dynamic).app */;
+			productReference = AA1D0F4E222A09A600678304 /* macDynamic.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AAD015BC222B2FE300E25CB7 /* Minecraft Sounds Extractor */ = {
+		AAD015BC222B2FE300E25CB7 /* macStatic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AAD015CA222B2FE300E25CB7 /* Build configuration list for PBXNativeTarget "Minecraft Sounds Extractor" */;
+			buildConfigurationList = AAD015CA222B2FE300E25CB7 /* Build configuration list for PBXNativeTarget "macStatic" */;
 			buildPhases = (
 				AAD015BF222B2FE300E25CB7 /* Sources */,
 				AAD015C1222B2FE300E25CB7 /* Frameworks */,
@@ -398,9 +399,9 @@
 			);
 			dependencies = (
 			);
-			name = "Minecraft Sounds Extractor";
+			name = macStatic;
 			productName = wxTest;
-			productReference = AAD015CD222B2FE300E25CB7 /* Minecraft Sounds Extractor.app */;
+			productReference = AAD015CD222B2FE300E25CB7 /* macStatic.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -436,8 +437,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				AA1D0F4D222A09A600678304 /* Minecraft Sounds Extractor (Dynamic) */,
-				AAD015BC222B2FE300E25CB7 /* Minecraft Sounds Extractor */,
+				AA1D0F4D222A09A600678304 /* macDynamic */,
+				AAD015BC222B2FE300E25CB7 /* macStatic */,
 			);
 		};
 /* End PBXProject section */
@@ -652,8 +653,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAF9D87D222B14E900437548 /* main.cpp in Sources */,
-				4126FAEB2288FD1300C42786 /* interface.cpp in Sources */,
+				AAA17BEB228DE6EA00ABED6C /* main.cpp in Sources */,
+				AAA17BEE228DE72300ABED6C /* interface.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,8 +662,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAD015C0222B2FE300E25CB7 /* main.cpp in Sources */,
-				4126FAEC2288FD1300C42786 /* interface.cpp in Sources */,
+				AAA17BEC228DE6EA00ABED6C /* main.cpp in Sources */,
+				AAA17BEF228DE72300ABED6C /* interface.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,8 +684,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -714,12 +715,14 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "$(WXROOT)/include/wx/wxprec.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					"$(WX_PREPROCESSOR_DEFINITIONS)",
 					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -728,11 +731,21 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(WXROOT)/src/tiff/libtiff\"",
+					"\"$(WXROOT)/src/regex\"",
+					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
+					"\"$(WXROOT)/include\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				WXPLATFORM = __WXOSX_COCOA__;
+				WXROOT = "$(PROJECT_DIR)/wxWidgets";
+				WXTOOLKIT = cocoa;
+				WX_PREPROCESSOR_DEFINITIONS = "WXBUILDING $(WXPLATFORM) __WX__ _FILE_OFFSET_BITS=64 _LARGE_FILES MACOS_CLASSIC __WXMAC_XCODE__=1 SCI_LEXER NO_CXX11_REGEX WX_PRECOMP=1 wxUSE_UNICODE_UTF8=0 wxUSE_UNICODE_WCHAR=1";
 			};
 			name = Debug;
 		};
@@ -742,8 +755,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -773,36 +786,39 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "$(WXROOT)/include/wx/wxprec.h";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(WX_PREPROCESSOR_DEFINITIONS)";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(WXROOT)/src/tiff/libtiff\"",
+					"\"$(WXROOT)/src/regex\"",
+					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
+					"\"$(WXROOT)/include\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				WXPLATFORM = __WXOSX_COCOA__;
+				WXROOT = "$(PROJECT_DIR)/wxWidgets";
+				WXTOOLKIT = cocoa;
+				WX_PREPROCESSOR_DEFINITIONS = "WXBUILDING $(WXPLATFORM) __WX__ _FILE_OFFSET_BITS=64 _LARGE_FILES MACOS_CLASSIC __WXMAC_XCODE__=1 SCI_LEXER NO_CXX11_REGEX WX_PRECOMP=1 wxUSE_UNICODE_UTF8=0 wxUSE_UNICODE_WCHAR=1";
 			};
 			name = Release;
 		};
 		AA1D0F60222A09A800678304 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = wxTest/wxTest.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				GCC_PREFIX_HEADER = "$(WXROOT)/include/wx/wxprec.h";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(WX_PREPROCESSOR_DEFINITIONS)";
-				HEADER_SEARCH_PATHS = (
-					"\"$(WXROOT)/src/tiff/libtiff\"",
-					"\"$(WXROOT)/src/regex\"",
-				);
 				INFOPLIST_FILE = "$(SRCROOT)/source/Info_cocoa.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -811,32 +827,15 @@
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravbug.wxTemplateDynamic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = (
-					"\"$(WXROOT)/include\"",
-					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
-				);
-				WXPLATFORM = __WXOSX_COCOA__;
-				WXROOT = "$(PROJECT_DIR)/wxWidgets";
-				WXTOOLKIT = cocoa;
-				WX_PREPROCESSOR_DEFINITIONS = "WXBUILDING $(WXPLATFORM) __WX__ _FILE_OFFSET_BITS=64 _LARGE_FILES MACOS_CLASSIC __WXMAC_XCODE__=1 SCI_LEXER NO_CXX11_REGEX WX_PRECOMP=1 wxUSE_UNICODE_UTF8=0 wxUSE_UNICODE_WCHAR=1";
 			};
 			name = Debug;
 		};
 		AA1D0F61222A09A800678304 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = wxTest/wxTest.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				GCC_PREFIX_HEADER = "$(WXROOT)/include/wx/wxprec.h";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(WX_PREPROCESSOR_DEFINITIONS)";
-				HEADER_SEARCH_PATHS = (
-					"\"$(WXROOT)/src/tiff/libtiff\"",
-					"\"$(WXROOT)/src/regex\"",
-				);
 				INFOPLIST_FILE = "$(SRCROOT)/source/Info_cocoa.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -845,31 +844,27 @@
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravbug.wxTemplateDynamic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = (
-					"\"$(WXROOT)/include\"",
-					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
-				);
-				WXPLATFORM = __WXOSX_COCOA__;
-				WXROOT = "$(PROJECT_DIR)/wxWidgets";
-				WXTOOLKIT = cocoa;
-				WX_PREPROCESSOR_DEFINITIONS = "WXBUILDING $(WXPLATFORM) __WX__ _FILE_OFFSET_BITS=64 _LARGE_FILES MACOS_CLASSIC __WXMAC_XCODE__=1 SCI_LEXER NO_CXX11_REGEX WX_PRECOMP=1 wxUSE_UNICODE_UTF8=0 wxUSE_UNICODE_WCHAR=1";
 			};
 			name = Release;
 		};
 		AAD015CB222B2FE300E25CB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = wxTest/wxTest.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				GCC_PREFIX_HEADER = "$(WXROOT)/include/wx/wxprec.h";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(WX_PREPROCESSOR_DEFINITIONS)";
 				HEADER_SEARCH_PATHS = (
+					"\"$(WXROOT)/include\"",
+					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
 					"\"$(WXROOT)/src/tiff/libtiff\"",
 					"\"$(WXROOT)/src/regex\"",
+					"\"$(WXROOT)/src/stc/scintilla/lexlib\"",
+					"\"$(WXROOT)/src/stc/scintilla/include\"",
+					"\"$(WXROOT)/src/stc/scintilla/src\"",
+					"\"$(WXROOT)/src/expat/expat/lib\"",
+					"\"$(WXROOT)/src/png\"",
+					"\"$(WXROOT)/src/jpeg\"",
+					"\"$(WXROOT)/src/zlib\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/source/Info_cocoa.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -879,39 +874,27 @@
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravbug.wxTemplateStatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = (
-					"\"$(WXROOT)/include\"",
-					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
-					"\"$(WXROOT)/src/zlib\"",
-					"\"$(WXROOT)/src/jpeg\"",
-					"\"$(WXROOT)/src/png\"",
-					"\"$(WXROOT)/src/expat/expat/lib\"",
-					"\"$(WXROOT)/src/tiff/libtiff\"",
-					"\"$(WXROOT)/src/stc/scintilla/src\"",
-					"\"$(WXROOT)/src/stc/scintilla/include\"",
-					"\"$(WXROOT)/src/stc/scintilla/lexlib\"",
-				);
-				WXPLATFORM = __WXOSX_COCOA__;
-				WXROOT = "$(PROJECT_DIR)/wxWidgets";
-				WXTOOLKIT = cocoa;
-				WX_PREPROCESSOR_DEFINITIONS = "WXBUILDING $(WXPLATFORM) __WX__ _FILE_OFFSET_BITS=64 _LARGE_FILES MACOS_CLASSIC __WXMAC_XCODE__=1 SCI_LEXER NO_CXX11_REGEX WX_PRECOMP=1 wxUSE_UNICODE_UTF8=0 wxUSE_UNICODE_WCHAR=1";
 			};
 			name = Debug;
 		};
 		AAD015CC222B2FE300E25CB7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = wxTest/wxTest.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				GCC_PREFIX_HEADER = "$(WXROOT)/include/wx/wxprec.h";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(WX_PREPROCESSOR_DEFINITIONS)";
 				HEADER_SEARCH_PATHS = (
+					"\"$(WXROOT)/include\"",
+					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
 					"\"$(WXROOT)/src/tiff/libtiff\"",
 					"\"$(WXROOT)/src/regex\"",
+					"\"$(WXROOT)/src/stc/scintilla/lexlib\"",
+					"\"$(WXROOT)/src/stc/scintilla/include\"",
+					"\"$(WXROOT)/src/stc/scintilla/src\"",
+					"\"$(WXROOT)/src/expat/expat/lib\"",
+					"\"$(WXROOT)/src/png\"",
+					"\"$(WXROOT)/src/jpeg\"",
+					"\"$(WXROOT)/src/zlib\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/source/Info_cocoa.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -921,22 +904,6 @@
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravbug.wxTemplateStatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = (
-					"\"$(WXROOT)/include\"",
-					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
-					"\"$(WXROOT)/src/zlib\"",
-					"\"$(WXROOT)/src/jpeg\"",
-					"\"$(WXROOT)/src/png\"",
-					"\"$(WXROOT)/src/expat/expat/lib\"",
-					"\"$(WXROOT)/src/tiff/libtiff\"",
-					"\"$(WXROOT)/src/stc/scintilla/src\"",
-					"\"$(WXROOT)/src/stc/scintilla/include\"",
-					"\"$(WXROOT)/src/stc/scintilla/lexlib\"",
-				);
-				WXPLATFORM = __WXOSX_COCOA__;
-				WXROOT = "$(PROJECT_DIR)/wxWidgets";
-				WXTOOLKIT = cocoa;
-				WX_PREPROCESSOR_DEFINITIONS = "WXBUILDING $(WXPLATFORM) __WX__ _FILE_OFFSET_BITS=64 _LARGE_FILES MACOS_CLASSIC __WXMAC_XCODE__=1 SCI_LEXER NO_CXX11_REGEX WX_PRECOMP=1 wxUSE_UNICODE_UTF8=0 wxUSE_UNICODE_WCHAR=1";
 			};
 			name = Release;
 		};
@@ -952,7 +919,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA1D0F5F222A09A800678304 /* Build configuration list for PBXNativeTarget "Minecraft Sounds Extractor (Dynamic)" */ = {
+		AA1D0F5F222A09A800678304 /* Build configuration list for PBXNativeTarget "macDynamic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA1D0F60222A09A800678304 /* Debug */,
@@ -961,7 +928,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AAD015CA222B2FE300E25CB7 /* Build configuration list for PBXNativeTarget "Minecraft Sounds Extractor" */ = {
+		AAD015CA222B2FE300E25CB7 /* Build configuration list for PBXNativeTarget "macStatic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AAD015CB222B2FE300E25CB7 /* Debug */,

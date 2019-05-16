@@ -7,25 +7,26 @@
 
 #pragma once
 
-#include "wx/artprov.h"
-#include "wx/xrc/xmlres.h"
-#include "wx/string.h"
-#include "wx/stattext.h"
-#include "wx/gdicmn.h"
-#include "wx/font.h"
-#include "wx/colour.h"
-#include "wx/settings.h"
-#include "wx/textctrl.h"
-#include "wx/bitmap.h"
-#include "wx/image.h"
-#include "wx/icon.h"
-#include "wx/button.h"
-#include "wx/choice.h"
-#include "wx/gauge.h"
-#include "wx/gbsizer.h"
-#include "wx/frame.h"
-#include "wx/menu.h"
-#include "wx/msgdlg.h"
+#include <wx/artprov.h>
+#include <wx/xrc/xmlres.h>
+#include <wx/string.h>
+#include <wx/stattext.h>
+#include <wx/gdicmn.h>
+#include <wx/font.h>
+#include <wx/colour.h>
+#include <wx/settings.h>
+#include <wx/textctrl.h>
+#include <wx/bitmap.h>
+#include <wx/image.h>
+#include <wx/icon.h>
+#include <wx/button.h>
+#include <wx/choice.h>
+#include <wx/gauge.h>
+#include <wx/gbsizer.h>
+#include <wx/frame.h>
+#include <wx/menu.h>
+#include <wx/msgdlg.h>
+#include <string>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -43,6 +44,7 @@ class mainFrame : public wxFrame
         void OnAbout(wxCommandEvent& event);
         wxDECLARE_EVENT_TABLE();
         void SetPlatformSpecificData();
+        bool LoadMcVersions(std::string path);
 	protected:
 		wxStaticText* label_1;
 		wxTextCtrl* txt_mcDir;

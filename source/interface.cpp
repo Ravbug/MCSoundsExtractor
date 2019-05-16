@@ -5,12 +5,14 @@
 
 #include "interface.h"
 #include <sys/types.h>
-#include <string>
+//#include <experimental/filesystem>
 //linux or mac only
-#ifdef __APPLE__ || __linux__
+#if defined __APPLE__ || defined __linux__
 #include <unistd.h>
 #include <pwd.h>
 #endif
+
+using namespace std;
 
 //Constructor for the Frame
 mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
@@ -126,9 +128,11 @@ void mainFrame::OnAbout(wxCommandEvent& event)
                  "About Minecraft Sounds Extractor", wxOK | wxICON_INFORMATION );
 }
 
-//sets the 2 text fields with starter data
+/**
+ * Sets platform-specific load and save path defaults
+ */
 void mainFrame::SetPlatformSpecificData(){
-#ifdef __APPLE__ || __linux__
+#if defined __APPLE__ || defined __linux__
 	struct passwd *pw = getpwuid(getuid());
 	const char *homedir = pw->pw_dir;
 #endif
@@ -141,4 +145,13 @@ void mainFrame::SetPlatformSpecificData(){
     txt_mcDir->ChangeValue(wxString(homedir)+wxString("/.minecraft"));
 #endif
     txt_outDir->ChangeValue(wxString(homedir)+wxString("/Desktop"));
+}
+
+/**
+ * Loads the minecraft version names into the combo box in the UI
+ * @param path file path to the directory to load minecraft versions
+ * @return true if successfully loaded versions, false if not
+ */
+bool mainFrame::LoadMcVersions(string path){
+	return false;
 }
