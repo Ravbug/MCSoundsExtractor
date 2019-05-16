@@ -4,10 +4,13 @@
 
 
 #include "interface.h"
-#include <unistd.h>
 #include <sys/types.h>
-#include <pwd.h>
 #include <string>
+//linux or mac only
+#ifdef __APPLE__ || __linux__
+#include <unistd.h>
+#include <pwd.h>
+#endif
 
 //Constructor for the Frame
 mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
@@ -125,11 +128,14 @@ void mainFrame::OnAbout(wxCommandEvent& event)
 
 //sets the 2 text fields with starter data
 void mainFrame::SetPlatformSpecificData(){
-    struct passwd *pw = getpwuid(getuid());
-    const char *homedir = pw->pw_dir;
+#ifdef __APPLE__ || __linux__
+	struct passwd *pw = getpwuid(getuid());
+	const char *homedir = pw->pw_dir;
+#endif
 #ifdef __APPLE__
     txt_mcDir->ChangeValue(wxString(homedir)+wxString("/Library/Application Support/minecraft"));
 #elif _WIN32
+
     txt_mcDir->ChangeValue(wxString(homedir)+wxString("/Appdata/Roaming/.minecraft"));
 #elif __linux__
     txt_mcDir->ChangeValue(wxString(homedir)+wxString("/.minecraft"));
