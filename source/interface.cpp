@@ -12,7 +12,15 @@
 //Constructor for the Frame
 mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
-	this->SetSizeHints( wxSize( -1,250 ), wxSize( -1,250 ) );
+	//window height (platform dependent)
+	#ifdef __APPLE__
+	int height = 250;
+	#elif __linux || _WIN32
+	int height = 400;
+	#endif
+	
+	
+	this->SetSizeHints( wxSize( -1,height ), wxSize( -1,height ) );
 
     //main sizer: Grid Bag Layout
 	wxGridBagSizer* gb_main;
