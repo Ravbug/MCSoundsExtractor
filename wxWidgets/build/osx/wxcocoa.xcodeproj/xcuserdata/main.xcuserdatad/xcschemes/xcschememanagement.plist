@@ -6,133 +6,308 @@
 	<dict>
 		<key>adv.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
 		<key>aui.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
 		<key>base.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
 		<key>core.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
 		<key>dynamic.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
 		<key>gl.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>8</integer>
 		</dict>
 		<key>html.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
 		<key>media.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>10</integer>
 		</dict>
 		<key>multilib.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>27</integer>
 		</dict>
 		<key>net.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>11</integer>
 		</dict>
 		<key>propgrid.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>12</integer>
 		</dict>
 		<key>qa.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>13</integer>
 		</dict>
 		<key>ribbon.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>14</integer>
 		</dict>
 		<key>richtext.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>15</integer>
 		</dict>
 		<key>static.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
 		<key>stc.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>16</integer>
 		</dict>
 		<key>webview.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>17</integer>
 		</dict>
 		<key>wxexpat.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>18</integer>
 		</dict>
 		<key>wxjpeg.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>19</integer>
 		</dict>
 		<key>wxpng.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>20</integer>
 		</dict>
 		<key>wxregex.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>21</integer>
 		</dict>
 		<key>wxscintilla.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>22</integer>
 		</dict>
 		<key>wxtiff.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>23</integer>
 		</dict>
 		<key>wxzlib.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>24</integer>
 		</dict>
 		<key>xml.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>25</integer>
 		</dict>
 		<key>xrc.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>26</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>04311EAB76193D5593D43DBC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2E7B4F88F81E37B4A9FF6C10</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2FF0B5E0505D3AEA9A4ACF12</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>325D519EDE373053836789ED</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>374BD863E6AD33189B7E4041</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3D4D213D981636AD97F25EDE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4D98B791E17232D39944F050</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4FF4B47503A43F2D94CB71A4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5C5CD199E7573C73AE6F392E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5FE4BE52F183356D931E7667</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>60328E6EA3793DA990E18FC2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>60E51BFF5CD2327483201F15</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>62E50658BDAD369D92294F69</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>64B126D857113F24BA8C4759</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>83F62FA47C9636169F1E18E9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8B9CA7F627D5348D8F03D04C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AA960FB143A63667839CE794</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B8F95052522B37AB86DA8918</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D5710D15A3E13DD884B17D44</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA4C13340B723959B29525B6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DD6D772D0AC73138988DB439</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E96566B813153B4295AD767C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F9096898D4873FBD96F76FBC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE1C78F1707A30878CBB2B4C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
