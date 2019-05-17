@@ -4,9 +4,10 @@
 
 
 #include "interface.h"
-#include <sys/types.h>
+#include "extractor.hpp"
 //linux or mac only
 #if defined __APPLE__ || defined __linux__
+#include <sys/types.h>
 #include <unistd.h>
 #include <pwd.h>
 #endif
@@ -58,7 +59,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	gb_main->Add( txt_outDir, wxGBPosition( 3, 0 ), wxGBSpan( 1, 1 ), wxALL|wxEXPAND, 5 );
 
     //choose button for output folder
-	btn_chooseOutDir = new wxButton( this, wxID_OPEN, wxT("Choose"), wxDefaultPosition, wxDefaultSize, 0 );
+	btn_chooseOutDir = new wxButton( this, wxID_SAVE, wxT("Choose"), wxDefaultPosition, wxDefaultSize, 0 );
 	gb_main->Add( btn_chooseOutDir, wxGBPosition( 3, 1 ), wxGBSpan( 1, 1 ), wxALL, 5 );
 
     //minecraft version label
@@ -103,41 +104,65 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
     
     //load defaults
     this->SetPlatformSpecificData();
-    
 }
 
 //default destructor
-mainFrame::~mainFrame()
-{
-}
+mainFrame::~mainFrame(){}
 
 //event table which routes clicks and other things to function calls
 wxBEGIN_EVENT_TABLE(mainFrame, wxFrame)
 EVT_MENU(wxID_EXIT, mainFrame::OnExit)
 EVT_MENU(wxID_ABOUT, mainFrame::OnAbout)
 EVT_BUTTON(wxID_OPEN,mainFrame::OnOpen)
+EVT_BUTTON(wxID_SAVE,mainFrame::OnSave)
 wxEND_EVENT_TABLE()
 
-//click events
+/**
+ Called when the exit menu or shortcut is called (cmd+Q, etc)
+ Closes the program
+ */
 void mainFrame::OnExit(wxCommandEvent& event)
 {
     Close( true );
 }
+/**
+ Called on About menu pressed
+ */
 void mainFrame::OnAbout(wxCommandEvent& event)
 {
-    wxMessageBox( "Fill in description text",
-                 "About Minecraft Sounds Extractor", wxOK | wxICON_INFORMATION );
+    wxMessageBox("Fill in description text","About Minecraft Sounds Extractor", wxOK | wxICON_INFORMATION);
 }
 
+/**
+ Called when the choose button for Minecraft Directory is clicked
+ Gets a path from the user and sets txt_mcDir's contents accordingly
+ @param event wxCommandEvent for the button (not used)
+ */
 void mainFrame::OnOpen(wxCommandEvent & event)
 {
-	//TODO: determine which button
-	string message = "hi";
-	cout << GetPathFromDialog(message);
+	string message = "Choose the folder where Minecraft is installed.";
+	string path = GetPathFromDialog(message);
+	if (path != ""){
+		txt_mcDir->ChangeValue(wxString(path));
+		//load MC versions into combo box here
+	}
 }
 
-/* Brings up a folder selection dialog with a prompt
- * @param string& message the prompt for the user
+/**
+ Called when the choose button for output directory is clicked
+ Gets a path from the user and sets txt_outDir's contents accordingly
+ @param event wxCommandEvent for the button (not used)
+ */
+void mainFrame::OnSave(wxCommandEvent& event){
+	string message = "Choose the location to write the sound files.";
+	string path = GetPathFromDialog(message);
+	if (path != ""){
+		txt_outDir->ChangeValue(wxString(path));
+	}
+}
+
+/** Brings up a folder selection dialog with a prompt
+ * @param message the prompt for the user
  * @return path selected, or an empty string if nothing chosen
  */
 string mainFrame::GetPathFromDialog(string& message)

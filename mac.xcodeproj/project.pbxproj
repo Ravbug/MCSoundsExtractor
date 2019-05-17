@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AA012114224C24D4000F4F82 /* wxmac.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA012113224C24D4000F4F82 /* wxmac.icns */; };
 		AA012115224C24D4000F4F82 /* wxmac.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA012113224C24D4000F4F82 /* wxmac.icns */; };
+		AA0E0A56228F255B00BDE45F /* extractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0E0A54228F255B00BDE45F /* extractor.cpp */; };
+		AA0E0A57228F255B00BDE45F /* extractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0E0A54228F255B00BDE45F /* extractor.cpp */; };
 		AA14A0EE222A1217002C4553 /* libwx_osx_cocoa.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = AA1D0F81222A0A1D00678304 /* libwx_osx_cocoa.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		AA14A0F3222A1219002C4553 /* libwx_osx_cocoa.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1D0F81222A0A1D00678304 /* libwx_osx_cocoa.dylib */; };
 		AA1D0FCC222A0A4B00678304 /* wxrelease.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AA1D0FC9222A0A4A00678304 /* wxrelease.xcconfig */; };
@@ -235,7 +237,9 @@
 
 /* Begin PBXFileReference section */
 		AA012113224C24D4000F4F82 /* wxmac.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = wxmac.icns; sourceTree = "<group>"; };
-		AA1D0F4E222A09A600678304 /* macDynamic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macDynamic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA0E0A54228F255B00BDE45F /* extractor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = extractor.cpp; sourceTree = "<group>"; };
+		AA0E0A55228F255B00BDE45F /* extractor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = extractor.hpp; sourceTree = "<group>"; };
+		AA1D0F4E222A09A600678304 /* Minecraft Sounds Extractor (Dynamic).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Minecraft Sounds Extractor (Dynamic).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA1D0F63222A0A1D00678304 /* wxcocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = wxcocoa.xcodeproj; path = wxWidgets/build/osx/wxcocoa.xcodeproj; sourceTree = SOURCE_ROOT; };
 		AA1D0FC9222A0A4A00678304 /* wxrelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = wxrelease.xcconfig; path = wxWidgets/build/osx/wxrelease.xcconfig; sourceTree = SOURCE_ROOT; };
 		AA1D0FCA222A0A4B00678304 /* wxcocoa.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = wxcocoa.xcconfig; path = wxWidgets/build/osx/wxcocoa.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -243,7 +247,7 @@
 		AAA17BD0228DE6EA00ABED6C /* interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interface.h; sourceTree = "<group>"; };
 		AAA17BEA228DE6EA00ABED6C /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		AAA17BED228DE72300ABED6C /* interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interface.cpp; sourceTree = "<group>"; };
-		AAD015CD222B2FE300E25CB7 /* macStatic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macStatic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAD015CD222B2FE300E25CB7 /* Minecraft Sounds Extractor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Minecraft Sounds Extractor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AADF6A0B222B359700991DD2 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		AADF6A26222B35B300991DD2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		AADF6A28222B35DA00991DD2 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -311,8 +315,8 @@
 		AA1D0F4F222A09A600678304 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AA1D0F4E222A09A600678304 /* macDynamic.app */,
-				AAD015CD222B2FE300E25CB7 /* macStatic.app */,
+				AA1D0F4E222A09A600678304 /* Minecraft Sounds Extractor (Dynamic).app */,
+				AAD015CD222B2FE300E25CB7 /* Minecraft Sounds Extractor.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -322,8 +326,10 @@
 			children = (
 				AA012113224C24D4000F4F82 /* wxmac.icns */,
 				AAF9D87A222B14E900437548 /* Info_cocoa.plist */,
-				AAA17BED228DE72300ABED6C /* interface.cpp */,
 				AAA17BD0228DE6EA00ABED6C /* interface.h */,
+				AAA17BED228DE72300ABED6C /* interface.cpp */,
+				AA0E0A55228F255B00BDE45F /* extractor.hpp */,
+				AA0E0A54228F255B00BDE45F /* extractor.cpp */,
 				AAA17BEA228DE6EA00ABED6C /* main.cpp */,
 				AA1D0FCA222A0A4B00678304 /* wxcocoa.xcconfig */,
 				AA1D0FCB222A0A4B00678304 /* wxdebug.xcconfig */,
@@ -368,9 +374,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AA1D0F4D222A09A600678304 /* macDynamic */ = {
+		AA1D0F4D222A09A600678304 /* Minecraft Sounds Extractor (Dynamic) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA1D0F5F222A09A800678304 /* Build configuration list for PBXNativeTarget "macDynamic" */;
+			buildConfigurationList = AA1D0F5F222A09A800678304 /* Build configuration list for PBXNativeTarget "Minecraft Sounds Extractor (Dynamic)" */;
 			buildPhases = (
 				AA1D0F4A222A09A600678304 /* Sources */,
 				AA1D0F4B222A09A600678304 /* Frameworks */,
@@ -382,14 +388,14 @@
 			dependencies = (
 				AA14A0F0222A1217002C4553 /* PBXTargetDependency */,
 			);
-			name = macDynamic;
+			name = "Minecraft Sounds Extractor (Dynamic)";
 			productName = wxTest;
-			productReference = AA1D0F4E222A09A600678304 /* macDynamic.app */;
+			productReference = AA1D0F4E222A09A600678304 /* Minecraft Sounds Extractor (Dynamic).app */;
 			productType = "com.apple.product-type.application";
 		};
-		AAD015BC222B2FE300E25CB7 /* macStatic */ = {
+		AAD015BC222B2FE300E25CB7 /* Minecraft Sounds Extractor */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AAD015CA222B2FE300E25CB7 /* Build configuration list for PBXNativeTarget "macStatic" */;
+			buildConfigurationList = AAD015CA222B2FE300E25CB7 /* Build configuration list for PBXNativeTarget "Minecraft Sounds Extractor" */;
 			buildPhases = (
 				AAD015BF222B2FE300E25CB7 /* Sources */,
 				AAD015C1222B2FE300E25CB7 /* Frameworks */,
@@ -399,9 +405,9 @@
 			);
 			dependencies = (
 			);
-			name = macStatic;
+			name = "Minecraft Sounds Extractor";
 			productName = wxTest;
-			productReference = AAD015CD222B2FE300E25CB7 /* macStatic.app */;
+			productReference = AAD015CD222B2FE300E25CB7 /* Minecraft Sounds Extractor.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -437,8 +443,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				AA1D0F4D222A09A600678304 /* macDynamic */,
-				AAD015BC222B2FE300E25CB7 /* macStatic */,
+				AA1D0F4D222A09A600678304 /* Minecraft Sounds Extractor (Dynamic) */,
+				AAD015BC222B2FE300E25CB7 /* Minecraft Sounds Extractor */,
 			);
 		};
 /* End PBXProject section */
@@ -654,6 +660,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAA17BEB228DE6EA00ABED6C /* main.cpp in Sources */,
+				AA0E0A56228F255B00BDE45F /* extractor.cpp in Sources */,
 				AAA17BEE228DE72300ABED6C /* interface.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -663,6 +670,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAA17BEC228DE6EA00ABED6C /* main.cpp in Sources */,
+				AA0E0A57228F255B00BDE45F /* extractor.cpp in Sources */,
 				AAA17BEF228DE72300ABED6C /* interface.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -919,7 +927,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA1D0F5F222A09A800678304 /* Build configuration list for PBXNativeTarget "macDynamic" */ = {
+		AA1D0F5F222A09A800678304 /* Build configuration list for PBXNativeTarget "Minecraft Sounds Extractor (Dynamic)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA1D0F60222A09A800678304 /* Debug */,
@@ -928,7 +936,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AAD015CA222B2FE300E25CB7 /* Build configuration list for PBXNativeTarget "macStatic" */ = {
+		AAD015CA222B2FE300E25CB7 /* Build configuration list for PBXNativeTarget "Minecraft Sounds Extractor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AAD015CB222B2FE300E25CB7 /* Debug */,
