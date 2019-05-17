@@ -27,6 +27,7 @@
 #include <wx/menu.h>
 #include <wx/msgdlg.h>
 #include <string>
+#include <wx/dirdlg.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -42,9 +43,12 @@ class mainFrame : public wxFrame
 	private:
         void OnExit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
+		void OnOpen(wxCommandEvent& event);
         wxDECLARE_EVENT_TABLE();
         void SetPlatformSpecificData();
         bool LoadMcVersions(std::string path);
+		
+		std::string GetPathFromDialog(std::string& message);
 	protected:
 		wxStaticText* label_1;
 		wxTextCtrl* txt_mcDir;
@@ -57,8 +61,6 @@ class mainFrame : public wxFrame
 		wxButton* btn_extract;
 		wxGauge* progressBar;
 	public:
-
 		mainFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Minecraft Sounds Extractor"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,250 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
-
 		~mainFrame();
 };

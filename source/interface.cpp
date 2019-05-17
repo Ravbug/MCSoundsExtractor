@@ -5,7 +5,6 @@
 
 #include "interface.h"
 #include <sys/types.h>
-//#include <experimental/filesystem>
 //linux or mac only
 #if defined __APPLE__ || defined __linux__
 #include <unistd.h>
@@ -20,10 +19,11 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	//window height (platform dependent)
 	#ifdef __APPLE__
 	int height = 250;
-	#elif __linux || _WIN32
+	#elif __linux
 	int height = 400;
+	#elif _WIN32
+	int height = 310;
 	#endif
-	
 	
 	this->SetSizeHints( wxSize( -1,height ), wxSize( -1,height ) );
 
@@ -44,7 +44,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	gb_main->Add( txt_mcDir, wxGBPosition( 1, 0 ), wxGBSpan( 1, 1 ), wxALL|wxEXPAND, 5 );
 
     //choose button for minecraft directory
-	btn_chooseMcDir = new wxButton( this, wxID_ANY, wxT("Choose"), wxDefaultPosition, wxDefaultSize, 0 );
+	btn_chooseMcDir = new wxButton( this, wxID_OPEN, wxT("Choose"), wxDefaultPosition, wxDefaultSize, 0 );
 	gb_main->Add( btn_chooseMcDir, wxGBPosition( 1, 1 ), wxGBSpan( 1, 1 ), wxALL, 5 );
 
     //output folder label
@@ -58,7 +58,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	gb_main->Add( txt_outDir, wxGBPosition( 3, 0 ), wxGBSpan( 1, 1 ), wxALL|wxEXPAND, 5 );
 
     //choose button for output folder
-	btn_chooseOutDir = new wxButton( this, wxID_ANY, wxT("Choose"), wxDefaultPosition, wxDefaultSize, 0 );
+	btn_chooseOutDir = new wxButton( this, wxID_OPEN, wxT("Choose"), wxDefaultPosition, wxDefaultSize, 0 );
 	gb_main->Add( btn_chooseOutDir, wxGBPosition( 3, 1 ), wxGBSpan( 1, 1 ), wxALL, 5 );
 
     //minecraft version label
@@ -73,7 +73,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	gb_main->Add( choice_mcVersion, wxGBPosition( 5, 0 ), wxGBSpan( 1, 1 ), wxALL|wxEXPAND, 5 );
 
     //extract button (which starts the process)
-	btn_extract = new wxButton( this, wxID_ANY, wxT("Extract"), wxDefaultPosition, wxDefaultSize, 0 );
+	btn_extract = new wxButton( this, wxID_EXECUTE, wxT("Extract"), wxDefaultPosition, wxDefaultSize, 0 );
 	gb_main->Add( btn_extract, wxGBPosition( 5, 1 ), wxGBSpan( 1, 1 ), wxALL, 5 );
 
     //progress bar which displays progress
@@ -113,8 +113,9 @@ mainFrame::~mainFrame()
 
 //event table which routes clicks and other things to function calls
 wxBEGIN_EVENT_TABLE(mainFrame, wxFrame)
-EVT_MENU(wxID_EXIT,  mainFrame::OnExit)
+EVT_MENU(wxID_EXIT, mainFrame::OnExit)
 EVT_MENU(wxID_ABOUT, mainFrame::OnAbout)
+EVT_BUTTON(wxID_OPEN,mainFrame::OnOpen)
 wxEND_EVENT_TABLE()
 
 //click events
@@ -128,23 +129,53 @@ void mainFrame::OnAbout(wxCommandEvent& event)
                  "About Minecraft Sounds Extractor", wxOK | wxICON_INFORMATION );
 }
 
+void mainFrame::OnOpen(wxCommandEvent & event)
+{
+	//TODO: determine which button
+	string message = "hi";
+	cout << GetPathFromDialog(message);
+}
+
+/* Brings up a folder selection dialog with a prompt
+ * @param string& message the prompt for the user
+ * @return path selected, or an empty string if nothing chosen
+ */
+string mainFrame::GetPathFromDialog(string& message)
+{
+	//present the dialog
+	wxDirDialog dlg(NULL, message, "", wxDD_DEFAULT_STYLE | wxDD_DIR_MUST_EXIST);
+	if (dlg.ShowModal() == wxID_CANCEL) {
+		return "";
+	}
+	//get the path and return the standard string version
+	wxString path = dlg.GetPath();
+	return path.ToStdString();
+}
+
 /**
  * Sets platform-specific load and save path defaults
  */
 void mainFrame::SetPlatformSpecificData(){
+	//the paths which will be determined
+	string homedir;
+	string mcDir;
+	string outDir;
 #if defined __APPLE__ || defined __linux__
 	struct passwd *pw = getpwuid(getuid());
-	const char *homedir = pw->pw_dir;
+	homedir = pw->pw_dir;
+	outDir = "/Desktop";
 #endif
 #ifdef __APPLE__
-    txt_mcDir->ChangeValue(wxString(homedir)+wxString("/Library/Application Support/minecraft"));
-#elif _WIN32
-
-    txt_mcDir->ChangeValue(wxString(homedir)+wxString("/Appdata/Roaming/.minecraft"));
+	mcDir = "/Library/Application Support/minecraft";
 #elif __linux__
-    txt_mcDir->ChangeValue(wxString(homedir)+wxString("/.minecraft"));
+	mcDir = "/.minecraft";
+#elif _WIN32
+	homedir = getenv("HOMEPATH");
+	mcDir = "\\AppData\\Roaming\\.minecraft";
+	outDir = "\\Desktop";
 #endif
-    txt_outDir->ChangeValue(wxString(homedir)+wxString("/Desktop"));
+	txt_mcDir->ChangeValue(wxString(homedir + mcDir));
+	txt_outDir->ChangeValue(wxString(homedir + outDir));
 }
 
 /**
