@@ -741,13 +741,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"\"$(BOOSTROOT)/include\"",
+					"\"$(BOOSTROOT)/unix/include\"",
 					"\"$(WXROOT)/src/tiff/libtiff\"",
 					"\"$(WXROOT)/src/regex\"",
 					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
 					"\"$(WXROOT)/include\"",
 				);
-				LIBRARY_SEARCH_PATHS = "$(BOOSTROOT)/lib";
+				LIBRARY_SEARCH_PATHS = "$(BOOSTROOT)/unix/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -809,13 +809,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"\"$(BOOSTROOT)/include\"",
+					"\"$(BOOSTROOT)/unix/include\"",
 					"\"$(WXROOT)/src/tiff/libtiff\"",
 					"\"$(WXROOT)/src/regex\"",
 					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
 					"\"$(WXROOT)/include\"",
 				);
-				LIBRARY_SEARCH_PATHS = "$(BOOSTROOT)/lib";
+				LIBRARY_SEARCH_PATHS = "$(BOOSTROOT)/unix/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -868,10 +868,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = (
-					"\"$(WXROOT)/include\"",
-					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
-					"\"$(WXROOT)/src/tiff/libtiff\"",
-					"\"$(WXROOT)/src/regex\"",
 					"\"$(WXROOT)/src/stc/scintilla/lexlib\"",
 					"\"$(WXROOT)/src/stc/scintilla/include\"",
 					"\"$(WXROOT)/src/stc/scintilla/src\"",
@@ -879,13 +875,18 @@
 					"\"$(WXROOT)/src/png\"",
 					"\"$(WXROOT)/src/jpeg\"",
 					"\"$(WXROOT)/src/zlib\"",
-					"\"$(BOOSTROOT)/include\"",
+					"\"$(BOOSTROOT)/unix/include\"",
+					"\"$(WXROOT)/src/tiff/libtiff\"",
+					"\"$(WXROOT)/src/regex\"",
+					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
+					"\"$(WXROOT)/include\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/source/Info_cocoa.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravbug.wxTemplateStatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -899,10 +900,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = (
-					"\"$(WXROOT)/include\"",
-					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
-					"\"$(WXROOT)/src/tiff/libtiff\"",
-					"\"$(WXROOT)/src/regex\"",
 					"\"$(WXROOT)/src/stc/scintilla/lexlib\"",
 					"\"$(WXROOT)/src/stc/scintilla/include\"",
 					"\"$(WXROOT)/src/stc/scintilla/src\"",
@@ -910,13 +907,18 @@
 					"\"$(WXROOT)/src/png\"",
 					"\"$(WXROOT)/src/jpeg\"",
 					"\"$(WXROOT)/src/zlib\"",
-					"\"$(BOOSTROOT)/include\"",
+					"\"$(BOOSTROOT)/unix/include\"",
+					"\"$(WXROOT)/src/tiff/libtiff\"",
+					"\"$(WXROOT)/src/regex\"",
+					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
+					"\"$(WXROOT)/include\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/source/Info_cocoa.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ravbug.wxTemplateStatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
