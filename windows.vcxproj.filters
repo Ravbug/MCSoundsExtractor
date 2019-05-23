@@ -21,9 +21,15 @@
     <ClCompile Include="source\interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\extractor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\interface.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\extractor.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
