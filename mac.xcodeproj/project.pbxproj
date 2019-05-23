@@ -690,6 +690,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BOOSTROOT = "$(PROJECT_DIR)/boost";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
@@ -740,6 +741,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					"\"$(BOOSTROOT)\"",
 					"\"$(WXROOT)/src/tiff/libtiff\"",
 					"\"$(WXROOT)/src/regex\"",
 					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",
@@ -761,6 +763,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BOOSTROOT = "$(PROJECT_DIR)/boost";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
@@ -805,6 +808,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					"\"$(BOOSTROOT)\"",
 					"\"$(WXROOT)/src/tiff/libtiff\"",
 					"\"$(WXROOT)/src/regex\"",
 					"\"$(WXROOT)/build/osx/setup/$(WXTOOLKIT)/include\"",

@@ -15,7 +15,7 @@ using namespace std;
 
 class extractor{
 public:
-	unique_ptr<vector<string> > LoadMcVersions(string &path);
+	vector<string> LoadMcVersions(string &path);
 private:
 protected:
 };

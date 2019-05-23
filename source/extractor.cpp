@@ -7,6 +7,7 @@
 //
 
 #include "extractor.hpp"
+#include <boost/filesystem.hpp>
 
 using namespace std;
 
@@ -15,6 +16,7 @@ using namespace std;
  @param path string path of the minecraft install directory to search
  @return vector of strings of installed versions, or empty array if no versions found
  */
-unique_ptr<vector<string> > extractor::LoadMcVersions(string &path){
-	return unique_ptr(nullptr);
+vector<string> extractor::LoadMcVersions(string &path){
+	return vector<string>();
 }
+
