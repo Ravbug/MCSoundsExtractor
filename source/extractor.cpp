@@ -28,8 +28,8 @@ vector<string> extractor::LoadMcVersions(string &root){
 	for (directory_iterator itr(p); itr != end_itr; itr++){
 		//if this is not a directory or other special file
 		path file = itr->path();
-		if (is_regular_file(file) && path.extension()){
-			
+		if (is_regular_file(file) && p.extension() == ".json"){
+			versions.push_back(p.filename().string());
 		}
 	}
 	return versions;
