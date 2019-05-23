@@ -15,7 +15,7 @@ using namespace std;
 
 class extractor{
 public:
-	vector<string> LoadMcVersions(string &path);
+	vector<string> LoadMcVersions(string &root);
 private:
 protected:
 };
