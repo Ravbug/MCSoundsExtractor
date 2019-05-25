@@ -24,6 +24,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	int height = 400;
 	#elif _WIN32
 	int height = 310;
+	this->SetBackgroundColour(*wxWHITE);
 	#endif
 	
 	this->SetSizeHints( wxSize( -1,height ), wxSize( -1,height ) );
@@ -104,6 +105,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
     
     //load defaults
     this->SetPlatformSpecificData();
+	this->LoadMcVersions(txt_mcDir->GetValue().ToStdString());
 }
 
 //default destructor
@@ -143,8 +145,10 @@ void mainFrame::OnOpen(wxCommandEvent & event)
 	string message = "Choose the folder where Minecraft is installed.";
 	string path = GetPathFromDialog(message);
 	if (path != ""){
-		txt_mcDir->ChangeValue(wxString(path));
 		//load MC versions into combo box here
+		if (LoadMcVersions(path)) {
+			txt_mcDir->ChangeValue(wxString(path));
+		}
 	}
 }
 
@@ -209,5 +213,20 @@ void mainFrame::SetPlatformSpecificData(){
  * @return true if successfully loaded versions, false if not
  */
 bool mainFrame::LoadMcVersions(string path){
-	return false;
+	choice_mcVersion->Clear();
+
+	vector<string> versions = extractor::LoadMcVersions(path);
+
+	//if nothing returned, messagebox and return false
+	if (versions.size() == 0) {
+		wxMessageBox("No Minecraft versions found inside " + path + "\nSelect another folder.","No Minecraft versions found.", wxOK | wxICON_STOP);
+		return false;
+	}
+
+	//load into the popup
+	for (string& version : versions) {
+		choice_mcVersion->AppendString(version);
+	}
+	choice_mcVersion->SetSelection(0);
+	return true;
 }

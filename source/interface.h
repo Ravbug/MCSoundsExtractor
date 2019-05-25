@@ -47,8 +47,7 @@ class mainFrame : public wxFrame
 		void OnSave(wxCommandEvent& event);
         wxDECLARE_EVENT_TABLE();
         void SetPlatformSpecificData();
-        bool LoadMcVersions(std::string path);
-		
+        bool LoadMcVersions(std::string path);		
 		std::string GetPathFromDialog(std::string& message);
 	protected:
 		wxStaticText* label_1;

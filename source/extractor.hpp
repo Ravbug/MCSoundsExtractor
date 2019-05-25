@@ -10,12 +10,18 @@
 
 #include <vector>
 #include <string>
+#include <rapidjson/document.h>
 
 using namespace std;
+using namespace rapidjson;
 
 class extractor{
 public:
-	vector<string> LoadMcVersions(string &root);
+	extractor(string& root, string& destination, string& version);
+	static vector<string> LoadMcVersions(string &root);
+	bool Extract();
 private:
+	string root, destination, version;
+	Document CreateDirMap();
 protected:
 };
