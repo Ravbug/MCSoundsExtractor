@@ -213,7 +213,6 @@ void mainFrame::SetPlatformSpecificData(){
  * @return true if successfully loaded versions, false if not
  */
 bool mainFrame::LoadMcVersions(string path){
-	choice_mcVersion->Clear();
 
 	vector<string> versions = extractor::LoadMcVersions(path);
 
@@ -222,6 +221,8 @@ bool mainFrame::LoadMcVersions(string path){
 		wxMessageBox("No Minecraft versions found inside " + path + "\nSelect another folder.","No Minecraft versions found.", wxOK | wxICON_STOP);
 		return false;
 	}
+	
+	choice_mcVersion->Clear();
 
 	//load into the popup
 	for (string& version : versions) {
