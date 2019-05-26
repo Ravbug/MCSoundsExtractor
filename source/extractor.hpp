@@ -11,6 +11,7 @@
 #include <vector>
 #include <string>
 #include <thread>
+#include <map>
 #include <rapidjson/document.h>
 
 using namespace std;
@@ -24,7 +25,6 @@ public:
 	void Extract(function<void(float)> progress,function<void(string)> error);
 private:
 	string root, destination, version;
-	Document CreateDirMap();
 	thread worker;
 protected:
 };

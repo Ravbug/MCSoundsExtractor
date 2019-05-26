@@ -73,19 +73,23 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)boost\win\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)boost\win\lib;$(LibraryPath)</LibraryPath>
+    <TargetName>Minecraft Sounds Extractor (32 bit debug)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)boost\win\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)boost\win\lib;$(LibraryPath)</LibraryPath>
+    <TargetName>Minecraft Sounds Extractor (32 bit)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)boost\win\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)boost\win\lib;$(LibraryPath)</LibraryPath>
+    <TargetName>Minecraft Sounds Extractor</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)boost\win\include;$(IncludePath)</IncludePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
     <LibraryPath>$(SolutionDir)boost\win\lib;$(LibraryPath)</LibraryPath>
+    <TargetName>Minecraft Sounds Extractor (Debug)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
