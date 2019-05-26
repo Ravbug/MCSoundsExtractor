@@ -45,7 +45,7 @@ vector<string> extractor::LoadMcVersions(string &root){
 /**
 Constructs an extractor object
 @param root path to the minecraft root directory
-@param definition path to the output folder
+@param destination path to the output folder
 @param version string representing the minecraft version to extract
 
 Values are assumed to be correct, invalid paths or versions will cause exceptions.
@@ -54,5 +54,39 @@ extractor::extractor(string& root, string& destination, string& version) {
 	this->root = root;
 	this->destination = destination;
 	this->version = version;
+}
+
+/**
+ Tests write priviledges of a folder by attempting to write to that folder
+ @param directory path to the folder
+ @return true if write and delete was successful, false otherwise
+ */
+bool extractor::hasWritePriviledges(string &directory){
+	path testpath = path(directory) / path("write_test_mcextractor");
+	//attempt to write file
+	boost::filesystem::ofstream(path(testpath));
+	
+	//is file there?
+	if (exists(testpath)){
+		remove(testpath);
+		return true;
+	}
+	return false;
+}
+
+/**
+ Extracts the minecraft sounds on a background thread
+ @param (*progress)(float) function to call on progress updates
+ @param (*error)(string) function to call if there are errors
+ */
+void extractor::Extract(function<void(float)> progress,function<void(string)> error){
+	
+	//spawn thread which calls thread_extract with the progress handler
+	worker = thread([&]{
+		std::cout<< root << endl << destination << version;
+		progress(10);
+		error("EEEEEEEEEE An error occcurred REEEEEE");
+	});
+	worker.detach();
 }
 

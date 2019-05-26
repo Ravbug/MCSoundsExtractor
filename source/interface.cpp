@@ -111,12 +111,19 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 //default destructor
 mainFrame::~mainFrame(){}
 
+//custom events for progress and errors
+wxDEFINE_EVENT(progEvt, wxCommandEvent);
+wxDEFINE_EVENT(errorEvt, wxCommandEvent);
+
 //event table which routes clicks and other things to function calls
 wxBEGIN_EVENT_TABLE(mainFrame, wxFrame)
 EVT_MENU(wxID_EXIT, mainFrame::OnExit)
 EVT_MENU(wxID_ABOUT, mainFrame::OnAbout)
 EVT_BUTTON(wxID_OPEN,mainFrame::OnOpen)
 EVT_BUTTON(wxID_SAVE,mainFrame::OnSave)
+EVT_BUTTON(wxID_EXECUTE,mainFrame::OnExecute)
+EVT_COMMAND(wxID_ANY, progEvt, mainFrame::OnAny)
+EVT_COMMAND(wxID_ANY, errorEvt, mainFrame::OnAny)
 wxEND_EVENT_TABLE()
 
 /**
@@ -162,6 +169,67 @@ void mainFrame::OnSave(wxCommandEvent& event){
 	string path = GetPathFromDialog(message);
 	if (path != ""){
 		txt_outDir->ChangeValue(wxString(path));
+	}
+}
+
+/**
+ Called when the execute button is clicked
+ Checks the input, then creates an extractor object and runs it
+ @param event wxCommandEvent for the button (not used)
+ */
+void mainFrame::OnExecute(wxCommandEvent &event){
+	int version = choice_mcVersion->GetSelection();
+	//ensure a version is selected
+	if (version == wxNOT_FOUND){
+		 wxMessageBox("Select a minecraft version to continue.","No version selected", wxOK | wxICON_ERROR);
+		return;
+	}
+	
+	string outDir = txt_outDir->GetValue().ToStdString();
+	//check write priviledges
+	if (!extractor::hasWritePriviledges(outDir)){
+		wxMessageBox("Check folder permissions, or select another output folder.","Cannot write to destination", wxOK | wxICON_ERROR);
+		return;
+	}
+	
+	string mcDir = txt_mcDir->GetValue().ToStdString();
+	string versionStr = choice_mcVersion->GetString(version).ToStdString();
+	
+	//construct extractor object
+	extractor e(mcDir,outDir,versionStr);
+	
+	//lambda callbacks, for progress and errors
+	auto progress = [this](float prog){
+		//pass value to main thread
+		wxCommandEvent event(progEvt);
+		event.SetInt(prog);
+		wxPostEvent(this, event);
+		
+	};
+	auto error = [this](string err){
+		wxCommandEvent event(errorEvt);
+		event.SetString(err);
+		wxPostEvent(this, event);;
+	};
+	
+	e.Extract(progress,error);
+}
+
+/**
+ Called on wxAny updates from the background thread.
+ @param event wxCommandEvent to use for processing
+ 
+ If event.GetMessage() returns an empty string, a progress update is assumed.
+ If event.GetMessage() has contents, then an error is assumed.
+ */
+void mainFrame::OnAny(wxCommandEvent &event){
+	string message = event.GetString().ToStdString();
+	if (message == ""){
+		int value = event.GetInt();
+		progressBar->SetValue(value);
+	}
+	else{
+		wxMessageBox(event.GetString(),"Error occurred", wxOK | wxICON_ERROR);
 	}
 }
 

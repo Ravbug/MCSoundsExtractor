@@ -45,6 +45,8 @@ class mainFrame : public wxFrame
         void OnAbout(wxCommandEvent& event);
 		void OnOpen(wxCommandEvent& event);
 		void OnSave(wxCommandEvent& event);
+		void OnExecute(wxCommandEvent& event);
+		void OnAny(wxCommandEvent& event);
         wxDECLARE_EVENT_TABLE();
         void SetPlatformSpecificData();
         bool LoadMcVersions(std::string path);		

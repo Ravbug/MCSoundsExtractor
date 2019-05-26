@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <string>
+#include <thread>
 #include <rapidjson/document.h>
 
 using namespace std;
@@ -19,9 +20,11 @@ class extractor{
 public:
 	extractor(string& root, string& destination, string& version);
 	static vector<string> LoadMcVersions(string &root);
-	bool Extract();
+	static bool hasWritePriviledges(string &directory);
+	void Extract(function<void(float)> progress,function<void(string)> error);
 private:
 	string root, destination, version;
 	Document CreateDirMap();
+	thread worker;
 protected:
 };
