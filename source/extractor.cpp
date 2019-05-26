@@ -12,6 +12,8 @@
 #include <iostream>
 #include <utility>
 #include <set>
+#include <sstream>
+#include <iterator>
 
 using namespace std;
 using namespace boost::filesystem;
@@ -125,24 +127,49 @@ void extractor::Extract(function<void(float)> progress,function<void(string)> er
 
 		//make a 'minecraft' directory at the destination
 		create_directory(path(destination) / path("minecraft"));
-		int count = to_copy.size();
+		float count = to_copy.size();
 		
 		//perform the copies
+		int current = 0;
+		vector<string> notFound;
 		for (auto& m : doc["objects"].GetObject()) {
 			string name = m.name.GetString();
 			if (to_copy.count(name)) {
-				//get real path from hash
+				try{
+					//get the hash for this file from indexes, then look up the hash in dirMap to get the full path to the source file
+					path source = dirMap.at(doc["objects"][m.name]["hash"].GetString());
+					
+					//construct the fully qualified path using destination
+					path destPath = destination / path(name);
+					
+					//make necessary subfolders
+					create_directories(destPath.parent_path());
 
-				//construct the fully qualified path using destination
-
-				//make necessary subfolders
-
-				//attempt copy, and abort with error dialog if exception occurs
+					//attempt copy
+					copy_file(source,destPath,copy_option::overwrite_if_exists);
+					current++;
+					progress(current/count*100);
+				}
+				catch(filesystem_error e){
+					//if there is an error, stop and display dialog
+					error(e.what());
+					return;
+				}
+				catch(out_of_range e){
+					//if the file could not be located (which happens on the april fools / joke versions),
+					//add it to the vector of unlocatable files
+					notFound.push_back(name);
+				}
 			}
 		}
-		
-		progress(10);
-		error("EEEEEEEEEE An error occcurred REEEEEE");
+		long num = notFound.size();
+		if (num > 0){
+			//use ostringstream to make a newline-delimited list of the not found items
+			ostringstream vecToString;
+			copy(notFound.begin(),notFound.end(),ostream_iterator<string>(vecToString,"\n"));
+			//error message
+			error("Unable to locate " + to_string(num) + " of " + to_string((int)count) + " items.\n\n" + vecToString.str());
+		}
 	},progress,error,root,destination,version);
 	worker.detach();
 }
