@@ -5,7 +5,7 @@ name="wxTemplateLinux";
 mkdir -p $root$path;
 
 # Compile dynamic linking
-g++ `wx-config --cppflags` `wx-config --libs` -Wl,-rpath,/usr/local/lib/ -o $root$path$name source/*.cpp source/*.h &&
+g++ `wx-config --cppflags` `wx-config --libs` -Wl,-rpath,/usr/local/lib/ -I./rapidjson/include -I./boost/unix/include -I. -L./boost/unix/lib/ -lboost_filesystem -o $root$path$name source/*.cpp &&
 
 # print success
 

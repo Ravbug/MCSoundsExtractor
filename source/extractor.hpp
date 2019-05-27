@@ -12,6 +12,7 @@
 #include <string>
 #include <thread>
 #include <map>
+#include <functional>
 #include <rapidjson/document.h>
 
 using namespace std;
