@@ -364,3 +364,6 @@ wxWidgets/build/linux/
 # Mac OS temporary and compiled data
 *.DS_STORE
 wxWidgets/build/osx/setup/*
+
+# Don't exclude boost headers
+!boost/*
