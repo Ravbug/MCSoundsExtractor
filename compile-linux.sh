@@ -1,6 +1,6 @@
 root="wxWidgets/";
 path="build/linux/app/";
-name="wxTemplateLinux";
+name="MinecraftSoundsExtractor";
 
 mkdir -p $root$path;
 
