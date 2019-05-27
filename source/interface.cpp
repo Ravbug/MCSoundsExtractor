@@ -46,7 +46,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	gb_main->Add( txt_mcDir, wxGBPosition( 1, 0 ), wxGBSpan( 1, 1 ), wxALL|wxEXPAND, 5 );
 
     //choose button for minecraft directory
-	btn_chooseMcDir = new wxButton( this, wxID_OPEN, wxT("Choose"), wxDefaultPosition, wxDefaultSize, 0 );
+	btn_chooseMcDir = new wxButton( this, wxID_OPEN, wxT("Choose..."), wxDefaultPosition, wxDefaultSize, 0 );
 	gb_main->Add( btn_chooseMcDir, wxGBPosition( 1, 1 ), wxGBSpan( 1, 1 ), wxALL, 5 );
 
     //output folder label
@@ -60,7 +60,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	gb_main->Add( txt_outDir, wxGBPosition( 3, 0 ), wxGBSpan( 1, 1 ), wxALL|wxEXPAND, 5 );
 
     //choose button for output folder
-	btn_chooseOutDir = new wxButton( this, wxID_SAVE, wxT("Choose"), wxDefaultPosition, wxDefaultSize, 0 );
+	btn_chooseOutDir = new wxButton( this, wxID_SAVE, wxT("Choose..."), wxDefaultPosition, wxDefaultSize, 0 );
 	gb_main->Add( btn_chooseOutDir, wxGBPosition( 3, 1 ), wxGBSpan( 1, 1 ), wxALL, 5 );
 
     //minecraft version label
@@ -93,9 +93,10 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
     
     //menu bar
     wxMenu *menuFile = new wxMenu;
-    menuFile->Append(ID_App, "&Hello...\tCtrl-H","Help string shown in status bar for this menu item");
+	menuFile->Append(wxID_OPEN,"Set Minecraft Folder\tCtrl-O");
+	menuFile->Append(wxID_SAVE, "Set Output Folder\tCtrl-S");
     menuFile->AppendSeparator();
-    menuFile->Append(wxID_EXIT);
+    menuFile->Append(wxID_EXIT,"Quit\tCtrl-W");
     wxMenu *menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
     wxMenuBar *menuBar = new wxMenuBar;
@@ -120,7 +121,9 @@ wxBEGIN_EVENT_TABLE(mainFrame, wxFrame)
 EVT_MENU(wxID_EXIT, mainFrame::OnExit)
 EVT_MENU(wxID_ABOUT, mainFrame::OnAbout)
 EVT_BUTTON(wxID_OPEN,mainFrame::OnOpen)
+EVT_MENU(wxID_OPEN, mainFrame::OnOpen)
 EVT_BUTTON(wxID_SAVE,mainFrame::OnSave)
+EVT_MENU(wxID_SAVE, mainFrame::OnSave)
 EVT_BUTTON(wxID_EXECUTE,mainFrame::OnExecute)
 EVT_COMMAND(wxID_ANY, progEvt, mainFrame::OnAny)
 EVT_COMMAND(wxID_ANY, errorEvt, mainFrame::OnAny)
@@ -139,7 +142,7 @@ void mainFrame::OnExit(wxCommandEvent& event)
  */
 void mainFrame::OnAbout(wxCommandEvent& event)
 {
-    wxMessageBox("Fill in description text","About Minecraft Sounds Extractor", wxOK | wxICON_INFORMATION);
+    wxMessageBox("This program extracts the obfuscated and hashed sound files\nfrom your Minecraft Java Edition install.\nVisit github.com/ravbug/MCsoundsExtractorCPP for information and updates.\n\nCreated by Ravbug, written in C++. Uses wxWidgets, boost, and RapidJSON libraries.","About Minecraft Sounds Extractor", wxOK | wxICON_INFORMATION);
 }
 
 /**
@@ -213,6 +216,7 @@ void mainFrame::OnExecute(wxCommandEvent &event){
 	};
 	
 	e.Extract(progress,error);
+	btn_extract->Enable(false);
 }
 
 /**
@@ -227,6 +231,10 @@ void mainFrame::OnAny(wxCommandEvent &event){
 	if (message == ""){
 		int value = event.GetInt();
 		progressBar->SetValue(value);
+		if (value == 200) {
+			wxMessageBox("Extraction completed successfully.", "Complete", wxOK | wxICON_INFORMATION);
+			btn_extract->Enable(true);
+		}
 	}
 	else{
 		wxMessageBox(event.GetString(),"Error occurred", wxOK | wxICON_ERROR);

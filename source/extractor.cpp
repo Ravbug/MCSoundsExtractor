@@ -168,8 +168,13 @@ void extractor::Extract(function<void(float)> progress,function<void(string)> er
 			ostringstream vecToString;
 			copy(notFound.begin(),notFound.end(),ostream_iterator<string>(vecToString,"\n"));
 			//error message
-			error("Unable to locate " + to_string(num) + " of " + to_string((int)count) + " items.\n\n" + vecToString.str());
+			error("Export finished with errors. Unable to locate " + to_string(num) + " of " + to_string((int)count) + " items.\n\n" + vecToString.str());
 		}
+		else {
+			//send progress update signalling finish
+			progress(200);
+		}
+
 	},progress,error,root,destination,version);
 	worker.detach();
 }
