@@ -844,9 +844,12 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(BOOSTROOT)/unix/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(BOOSTROOT)/unix/lib",
+					"$(PROJECT_DIR)/boost/unix/lib",
+				);
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ravbug.wxTemplateDynamic;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ravbug.mcextractor-dynamic";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -862,9 +865,12 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(BOOSTROOT)/unix/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(BOOSTROOT)/unix/lib",
+					"$(PROJECT_DIR)/boost/unix/lib",
+				);
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ravbug.wxTemplateDynamic;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ravbug.mcextractor-dynamic";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -895,9 +901,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/boost/unix/lib";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ravbug.wxTemplateStatic;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravbug.mcextractor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -928,9 +934,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/boost/unix/lib";
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ravbug.wxTemplateStatic;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ravbug.mcextractor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
