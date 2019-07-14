@@ -21,7 +21,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	#ifdef __APPLE__
 	int height = 250;
 	#elif __linux
-	int height = 400;
+	int height = 450;
 	#elif _WIN32
 	int height = 310;
 	this->SetBackgroundColour(*wxWHITE);
@@ -229,11 +229,14 @@ void mainFrame::OnExecute(wxCommandEvent &event){
 void mainFrame::OnAny(wxCommandEvent &event){
 	string message = event.GetString().ToStdString();
 	if (message == ""){
-		int value = event.GetInt();
-		progressBar->SetValue(value);
+		int value = event.GetInt();		
+
 		if (value == 200) {
 			wxMessageBox("Extraction completed successfully.", "Complete", wxOK | wxICON_INFORMATION);
 			btn_extract->Enable(true);
+		}
+		else{
+			progressBar->SetValue(value);
 		}
 	}
 	else{

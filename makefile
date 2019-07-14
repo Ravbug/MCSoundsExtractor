@@ -1,7 +1,7 @@
 # flags needed to build the target (compiler, target name, and compiler flags)
 CC = g++
 CFLAGS := -std=c++17 `wxWidgets/build/linux/wx-config --cppflags` `wxWidgets/build/linux/wx-config --libs` -Wl,-rpath,wxWidgets/build/linux/lib/ -I./rapidjson/include
-target = wxWidgetsTemplate
+target = MinecraftSoundsExtractor
 
 # location of source files
 source_dir = source
