@@ -7,7 +7,6 @@
 //
 
 #include "extractor.hpp"
-#include <boost/filesystem.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <iostream>
 #include <utility>
@@ -16,7 +15,17 @@
 #include <iterator>
 
 using namespace std;
-using namespace boost::filesystem;
+
+#ifdef __APPLE__
+	#include <boost/filesystem.hpp>
+	using namespace boost::filesystem;
+#else
+	#include <filesystem>
+	#include <fstream>
+	using namespace std::filesystem;
+	#define copy_option copy_options
+	#define overwrite_if_exists overwrite_existing
+#endif
 
 /**
  Loads the Minecraft versions in a folder
@@ -41,7 +50,7 @@ vector<string> extractor::LoadMcVersions(string &root){
 		
 		}
 	}
-	catch (boost::filesystem::filesystem_error& e) { cout << e.what(); }
+	catch (filesystem_error& e) { cout << e.what(); }
 
 	return versions;
 }
@@ -68,7 +77,7 @@ extractor::extractor(string& root, string& destination, string& version) {
 bool extractor::hasWritePriviledges(string &directory){
 	path testpath = path(directory) / path("write_test_mcextractor");
 	//attempt to write file
-	boost::filesystem::ofstream(path(testpath));
+	ofstream(path(testpath));
 	
 	//is file there?
 	if (exists(testpath)){

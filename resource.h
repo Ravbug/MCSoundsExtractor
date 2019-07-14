@@ -3,7 +3,7 @@
 // Used by Resource.rc
 
 //
-#define AAAAAA                       101
+#define IDI_ICON1                       101
 
 // Next default values for new objects
 // 
