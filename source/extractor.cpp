@@ -19,12 +19,14 @@ using namespace std;
 #ifdef __APPLE__
 	#include <boost/filesystem.hpp>
 	using namespace boost::filesystem;
+	#define ofstream_scope boost::filesystem
 #else
 	#include <filesystem>
 	#include <fstream>
 	using namespace std::filesystem;
 	#define copy_option copy_options
 	#define overwrite_if_exists overwrite_existing
+	#define ofstream_scope std
 #endif
 
 /**
@@ -77,7 +79,7 @@ extractor::extractor(string& root, string& destination, string& version) {
 bool extractor::hasWritePriviledges(string &directory){
 	path testpath = path(directory) / path("write_test_mcextractor");
 	//attempt to write file
-	ofstream(path(testpath));
+	ofstream_scope::ofstream(path(testpath));
 	
 	//is file there?
 	if (exists(testpath)){
