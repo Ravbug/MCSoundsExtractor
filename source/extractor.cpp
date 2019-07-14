@@ -7,7 +7,6 @@
 //
 
 #include "extractor.hpp"
-#include <boost/range/iterator_range.hpp>
 #include <iostream>
 #include <utility>
 #include <set>
@@ -18,10 +17,12 @@ using namespace std;
 
 #ifdef __APPLE__
 	#include <boost/filesystem.hpp>
+	#include <boost/range/iterator_range.hpp>
 	using namespace boost::filesystem;
 	#define ofstream_scope boost::filesystem
 #else
 	#include <filesystem>
+	#include <algorithm>
 	#include <fstream>
 	using namespace std::filesystem;
 	#define copy_option copy_options

@@ -57,15 +57,6 @@ if [ $success = 0 ]; then
 	exitWithMessage "make"
 fi
 
-# install (requires priviledges)
-echoStatus "make install" "Starting the silent make install, enter the administrator password if prompted"
-success=0
-sudo make install --silent && success=1
-
-if [ $success = 0 ]; then
-	exitWithMessage "make install"
-fi
-
 # test the installed library
 echo -e "\e[45mwx-config:\e[49m Currently installed wxWidgets version is \e[44m$(wx-config --version)\e[49m";
 
