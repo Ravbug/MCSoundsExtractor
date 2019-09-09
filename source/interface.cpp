@@ -14,20 +14,43 @@
 
 using namespace std;
 
+#ifdef _WIN32
+
+/**
+ @return the calculated display scale factor using GDI+
+ */
+inline float get_WIN_dpi_multiple() {
+	FLOAT dpiX;
+	HDC screen = GetDC(0);
+	dpiX = static_cast<FLOAT>(GetDeviceCaps(screen, LOGPIXELSX));
+	ReleaseDC(0, screen);
+	return dpiX / 96;
+}
+
+#endif
+
+
+
 //Constructor for the Frame
 mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 	//window height (platform dependent)
 	#ifdef __APPLE__
-	int height = 250;
+		int height = 250;
 	#elif __linux
-	int height = 450;
+		int height = 450;
 	#elif _WIN32
-	int height = 310;
-	this->SetBackgroundColour(*wxWHITE);
+		int height = 310;
+		this->SetBackgroundColour(*wxWHITE);
+	
+		//DPI scaling for Windows
+		float fac = get_WIN_dpi_multiple();
+		wxSize size = window->GetSize();
+		window->SetSize(wxSize(size.GetWidth() * fac,size.GetHeight()*fac));
 	#endif
 	
-	this->SetSizeHints( wxSize( -1,height ), wxSize( -1,height ) );
+	this->SetSizeHints( wxSize( 250,height ),wxSize( -1,height ));
+	
 
     //main sizer: Grid Bag Layout
 	wxGridBagSizer* gb_main;
