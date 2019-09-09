@@ -26,13 +26,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\interface.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="resource1.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\extractor.hpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource1.h">
+    <ClInclude Include="source\interface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

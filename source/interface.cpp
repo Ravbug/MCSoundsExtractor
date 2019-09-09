@@ -40,13 +40,14 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	#elif __linux
 		int height = 450;
 	#elif _WIN32
-		int height = 310;
+		
 		this->SetBackgroundColour(*wxWHITE);
 	
 		//DPI scaling for Windows
 		float fac = get_WIN_dpi_multiple();
-		wxSize size = window->GetSize();
-		window->SetSize(wxSize(size.GetWidth() * fac,size.GetHeight()*fac));
+		wxSize csize = this->GetSize();
+		int height = 310 * fac;
+		this->SetSize(wxSize(csize.GetWidth() * fac, height));
 	#endif
 	
 	this->SetSizeHints( wxSize( 250,height ),wxSize( -1,height ));
