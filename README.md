@@ -5,6 +5,8 @@ This is a simple utility which extracts the hashed and scattered sound files fro
 This is a C++ rewrite of my Java version of this application. If for some reason this app is not working on your system, you can
 use the Java one here: [https://github.com/Ravbug/MCSoundsExtractor](https://github.com/Ravbug/MCSoundsExtractor)
 
+![Screenshot](https://i.imgur.com/qInTOb4.png)
+
 ## How to use:
 1. [Download](https://github.com/Ravbug/MCSoundsExtractorCPP/releases) the application from the releases section of this repository.
 2. To open the program, double-click the executable file (.exe, .app, etc) in your file browser.
