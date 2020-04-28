@@ -1,6 +1,10 @@
 # wxWidgets Linux setup script by Ravbug (github.com/ravbug)
 # This script will set up wxWidgets for use on your Linux computer. 
 
+# Modify this variable if wxWidgets is not located in this repository
+# change it to the path where wxWidgets is located
+WXROOT=wxWidgets
+
 # function that prints an error message and stops the script
 # $1 = what failed
 exitWithMessage(){
@@ -18,7 +22,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" ;
 cd $DIR;
 
 # run autogen.sh
-cd wxWidgets/
+cd $WXROOT
 echoStatus "autogen" "Running autogen.sh"
 success=0;
 ./autogen.sh && success=1;
@@ -36,7 +40,7 @@ cd build/linux;
 echoStatus "configure" "Running configure script"
 # run the configure script
 success=0;
-../../configure --enable-unicode --enable-debug && success=1
+../../configure --enable-unicode --disable-shared && success=1
 
 # check success
 if [ $success = 0 ]; then

@@ -31,12 +31,12 @@ Clone the repository as a zip, extract it, and then follow the steps for your OS
 ### Linux
 1. Ensure you have the required dependencies. If you do not have them, the setup will fail (but it will tell you which one you are missing). Commonly missing packages:
    - autoconf
-   - g++
+   - g++ (at least version 8 for C++17 support, if this is a separate package, use `make linux-pkg CC=g++-8`
    - gtk3 dev
    - make
    - If you install a library but the setup still fails, try installing the development version of the package. 
 2. Open a shell window in the template folder root. 
-3. Run `make run`. This will compile the library, the app, and launch it. The object files and the executable will be located inside `linux-build/` which is created when you compile for the first time. The library files will be located inside `wxWidgets/build/linux`.
+3. Run `make linux-pkg`. This will compile the library, the app, and generate an AppImage. The object files and the executable will be located inside `linux-build/` which is created when you compile for the first time. The library files will be located inside `wxWidgets/build/linux`. The AppImage will be placed in the repository root directory.
 
 **To make release builds, refer to this page:** [https://github.com/Ravbug/wxWidgetsTemplate/wiki/Creating-Release-Builds](https://github.com/Ravbug/wxWidgetsTemplate/wiki/Creating-Release-Builds)
 

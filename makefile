@@ -1,6 +1,7 @@
 # flags needed to build the target (compiler, target name, and compiler flags)
-CC = g++
-CFLAGS := -std=c++17 `wxWidgets/build/linux/wx-config --cppflags` `wxWidgets/build/linux/wx-config --libs` -Wl,-rpath,wxWidgets/build/linux/lib/ -I./rapidjson/include
+CC = c++
+WXROOT := wxWidgets
+CFLAGS := `$(WXROOT)/build/linux/wx-config --cxxflags --libs` -Wl,-rpath,$(WXROOT)/build/linux/lib/ -std=gnu++17 -lstdc++fs -I./rapidjson/include
 target = MinecraftSoundsExtractor
 
 # location of source files
@@ -8,7 +9,7 @@ source_dir = source
 build_dir = linux-build
 
 # library build information
-lib_build_path = wxWidgets/build/linux
+lib_build_path = $(WXROOT)/build/linux
 lib_file_detect = Makefile
 
 # derives names of object files (only looks at .cpp files)
@@ -20,6 +21,10 @@ debug:
 	
 release:
 	@make --no-print-directory mode=-O3 all
+	
+linux-pkg:
+	@make --no-print-directory release
+	name=$(target) build_dir=$(build_dir) src=$(source_dir) lib_dir=$(lib_build_path)/lib ./linux-pkg.sh
 
 # Compiles the app, and the library if needed. Uses all the available processor cores.
 all: $(lib_build_path)/$(lib_file_detect)
@@ -27,7 +32,7 @@ all: $(lib_build_path)/$(lib_file_detect)
 
 # link the object files together into the executable
 $(build_dir)/$(target): $(objects)
-	$(CC) $(CFLAGS) $(mode) -o $@ $^
+	$(CC) $(mode) -o $@ $^ $(CFLAGS)
 
 # compile object files from source files
 # This only looks at changes in the .cpp files, so if headers are modified, a rebuild is needed.
@@ -44,10 +49,11 @@ clean:
 	rm -rf $(build_dir)
 	
 clean-library:
-	rm -rf wxWidgets/build/linux/
+	rm -rf $(WXROOT)/build/linux/
 	
 clean-all: clean clean-library
 	
 # launch the app
 run: debug
 	@./$(build_dir)/$(target)
+
