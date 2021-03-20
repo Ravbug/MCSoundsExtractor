@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin, Stefan Csomor
 // Modified by:
 // Created:     2006-01-12
-// Copyright:   (c) 2006 Vadim Zeitlin <vadim@wxwindows.org>
+// Copyright:   (c) 2006 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -215,7 +215,7 @@ int wxGUIEventLoop::DoDispatchTimeout(unsigned long timeout)
         
         switch (response) 
         {
-            case NSRunContinuesResponse:
+            case NSModalResponseContinue:
             {
                 [[NSRunLoop currentRunLoop]
                         runMode:NSDefaultRunLoopMode
@@ -229,8 +229,8 @@ int wxGUIEventLoop::DoDispatchTimeout(unsigned long timeout)
                 
                 return -1;
             }
-            case NSRunStoppedResponse:
-            case NSRunAbortedResponse:
+            case NSModalResponseStop:
+            case NSModalResponseAbort:
                 return -1;
             default:
                 // nested native loops may return other codes here, just ignore them

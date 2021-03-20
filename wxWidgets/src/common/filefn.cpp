@@ -796,79 +796,14 @@ wxString wxPathOnly (const wxString& path)
 // and back again - or we get nasty problems with delimiters.
 // Also, convert to lower case, since case is significant in UNIX.
 
-#if defined(__WXMAC__) && !defined(__WXOSX_IPHONE__)
+#ifdef __WXOSX__
 
-#define kDefaultPathStyle kCFURLPOSIXPathStyle
-
-wxString wxMacFSRefToPath( const FSRef *fsRef , CFStringRef additionalPathComponent )
+CFURLRef wxOSXCreateURLFromFileSystemPath( const wxString& path)
 {
-    CFURLRef fullURLRef;
-    fullURLRef = CFURLCreateFromFSRef(NULL, fsRef);
-    if ( fullURLRef == NULL)
-        return wxEmptyString;
-
-    if ( additionalPathComponent )
-    {
-        CFURLRef parentURLRef = fullURLRef ;
-        fullURLRef = CFURLCreateCopyAppendingPathComponent(NULL, parentURLRef,
-            additionalPathComponent,false);
-        CFRelease( parentURLRef ) ;
-    }
-    wxCFStringRef cfString( CFURLCopyFileSystemPath(fullURLRef, kDefaultPathStyle ));
-    CFRelease( fullURLRef ) ;
-
-    return wxCFStringRef::AsStringWithNormalizationFormC(cfString);
-}
-
-OSStatus wxMacPathToFSRef( const wxString&path , FSRef *fsRef )
-{
-    OSStatus err = noErr ;
-    CFMutableStringRef cfMutableString = CFStringCreateMutableCopy(NULL, 0, wxCFStringRef(path));
+    wxCFRef<CFMutableStringRef> cfMutableString(CFStringCreateMutableCopy(NULL, 0, wxCFStringRef(path)));
     CFStringNormalize(cfMutableString,kCFStringNormalizationFormD);
-    CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, cfMutableString , kDefaultPathStyle, false);
-    CFRelease( cfMutableString );
-    if ( NULL != url )
-    {
-        if ( CFURLGetFSRef(url, fsRef) == false )
-            err = fnfErr ;
-        CFRelease( url ) ;
-    }
-    else
-    {
-        err = fnfErr ;
-    }
-    return err ;
+    return CFURLCreateWithFileSystemPath(kCFAllocatorDefault, cfMutableString , kCFURLPOSIXPathStyle, false);
 }
-
-wxString wxMacHFSUniStrToString( ConstHFSUniStr255Param uniname )
-{
-    wxCFStringRef cfname( CFStringCreateWithCharacters( kCFAllocatorDefault,
-                                                      uniname->unicode,
-                                                      uniname->length ) );
-    return wxCFStringRef::AsStringWithNormalizationFormC(cfname);
-}
-
-#ifndef __LP64__
-
-wxString wxMacFSSpec2MacFilename( const FSSpec *spec )
-{
-    FSRef fsRef ;
-    if ( FSpMakeFSRef( spec , &fsRef) == noErr )
-    {
-        return wxMacFSRefToPath( &fsRef ) ;
-    }
-    return wxEmptyString ;
-}
-
-void wxMacFilename2FSSpec( const wxString& path , FSSpec *spec )
-{
-    OSStatus err = noErr;
-    FSRef fsRef;
-    wxMacPathToFSRef( path , &fsRef );
-    err = FSGetCatalogInfo(&fsRef, kFSCatInfoNone, NULL, NULL, spec, NULL);
-    __Verify_noErr(err);
-}
-#endif
 
 #endif // __WXMAC__
 

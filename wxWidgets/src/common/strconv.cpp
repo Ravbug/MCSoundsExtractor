@@ -1195,7 +1195,6 @@ size_t wxMBConvUTF8::ToWChar(wchar_t *buf, size_t n,
     while ((isNulTerminated ? *psz : srcLen--) && ((!buf) || (len < n)))
     {
         const char *opsz = psz;
-        bool invalid = false;
         unsigned char cc = *psz++, fc = cc;
         unsigned cnt;
         for (cnt = 0; fc & 0x80; cnt++)
@@ -1219,6 +1218,7 @@ size_t wxMBConvUTF8::ToWChar(wchar_t *buf, size_t n,
         }
         else
         {
+            bool invalid = false;
             cnt--;
             if (!cnt)
             {
@@ -1425,7 +1425,7 @@ size_t wxMBConvUTF8::FromWChar(char *buf, size_t n,
                 len += cnt + 1;
                 if (buf)
                 {
-                    *buf++ = (char) ((-128 >> cnt) | ((cc >> (cnt * 6)) & (0x3f >> cnt)));
+                    *buf++ = (char) ((~0x7fu >> cnt) | ((cc >> (cnt * 6)) & (0x3f >> cnt)));
                     while (cnt--)
                         *buf++ = (char) (0x80 | ((cc >> (cnt * 6)) & 0x3f));
                 }
@@ -2047,7 +2047,7 @@ wxMBConvUTF32swap::FromWChar(char *dst, size_t dstLen,
 #define ICONV_FAILED(cres, bufLeft)  (cres == (size_t)-1)
 #endif
 
-#define ICONV_CHAR_CAST(x)  ((ICONV_CONST char **)(x))
+#define ICONV_CHAR_CAST(x) const_cast<ICONV_CONST char**>(x)
 
 #define ICONV_T_INVALID ((iconv_t)-1)
 
@@ -2396,7 +2396,7 @@ size_t wxMBConv_iconv::FromWChar(char *dst, size_t dstLen,
         src = tmpbuf;
     }
 
-    char* inbuf = (char*)src;
+    const char* inbuf = reinterpret_cast<const char*>(src);
     if ( dst )
     {
         // have destination buffer, convert there
@@ -2450,7 +2450,7 @@ size_t wxMBConv_iconv::GetMBNulLen() const
         char buf[8]; // should be enough for NUL in any encoding
         size_t inLen = sizeof(wchar_t),
                outLen = WXSIZEOF(buf);
-        char *inBuff = (char *)wnul;
+        const char* inBuff = reinterpret_cast<const char*>(wnul);
         char *outBuff = buf;
         if ( iconv(w2m, ICONV_CHAR_CAST(&inBuff), &inLen, &outBuff, &outLen) == (size_t)-1 )
         {
@@ -3307,7 +3307,7 @@ WXDLLIMPEXP_DATA_BASE(wxMBConv *) wxConvUI = wxGet_wxConvLocalPtr();
 // It is important to use this conversion object under Darwin as it ensures
 // that Unicode strings are (re)composed correctly even though xnu kernel uses
 // decomposed form internally (at least for the file names).
-static wxMBConv_cf wxConvMacUTF8DObj(wxFONTENCODING_UTF8);
+static wxMBConvD_cf wxConvMacUTF8DObj(wxFONTENCODING_UTF8);
 #endif
 
 WXDLLIMPEXP_DATA_BASE(wxMBConv *) wxConvFileName =

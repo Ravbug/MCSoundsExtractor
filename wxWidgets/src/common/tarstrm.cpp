@@ -1338,9 +1338,9 @@ wxString wxTarOutputStream::PaxHeaderPath(const wxString& format,
     ret.reserve(format.length() + path.length() + 16);
 
     size_t begin = 0;
-    size_t end;
 
     for (;;) {
+        size_t end;
         end = format.find('%', begin);
         if (end == wxString::npos || end + 1 >= format.length())
             break;
@@ -1474,7 +1474,7 @@ void wxTarOutputStream::SetExtendedHeader(const wxString& key,
             m_extendedHdr = new char[m_extendedSize];
             if (oldHdr) {
                 strcpy(m_extendedHdr, oldHdr);
-                delete oldHdr;
+                delete [] oldHdr;
             } else {
                 *m_extendedHdr = 0;
             }

@@ -86,6 +86,7 @@
 #include <errno.h>
 
 #if wxUSE_GUI
+    #include "wx/filename.h"
     #include "wx/filesys.h"
     #include "wx/notebook.h"
     #include "wx/statusbr.h"
@@ -613,14 +614,7 @@ static bool ReadAll(wxInputStream *is, wxArrayString& output)
     // the stream could be already at EOF or in wxSTREAM_BROKEN_PIPE state
     is->Reset();
 
-    // Notice that wxTextInputStream doesn't work correctly with wxConvAuto
-    // currently, see #14720, so use the current locale conversion explicitly
-    // under assumption that any external program should be using it too.
-    wxTextInputStream tis(*is, " \t"
-#if wxUSE_UNICODE
-                                    , wxConvLibc
-#endif
-                                                );
+    wxTextInputStream tis(*is);
 
     for ( ;; )
     {
@@ -703,9 +697,9 @@ long wxExecute(const wxString& command,
 // ----------------------------------------------------------------------------
 
 // Id generation
-static int wxCurrentId = 100;
+static wxWindowID wxCurrentId = 100;
 
-int wxNewId()
+wxWindowID wxNewId()
 {
     // skip the part of IDs space that contains hard-coded values:
     if (wxCurrentId == wxID_LOWEST)
@@ -714,11 +708,11 @@ int wxNewId()
     return wxCurrentId++;
 }
 
-int
+wxWindowID
 wxGetCurrentId(void) { return wxCurrentId; }
 
 void
-wxRegisterId (int id)
+wxRegisterId (wxWindowID id)
 {
   if (id >= wxCurrentId)
     wxCurrentId = id + 1;
@@ -1139,12 +1133,8 @@ static bool DoLaunchDefaultBrowserHelper(const wxString& url, int flags)
 
         if ( params.scheme == "file" )
         {
-            // TODO: extract URLToFileName() to some always compiled in
-            //       function
-#if wxUSE_FILESYSTEM
             // for same reason as above, remove the scheme from the URL
-            params.path = wxFileSystem::URLToFileName(url).GetFullPath();
-#endif // wxUSE_FILESYSTEM
+            params.path = wxFileName::URLToFileName(url).GetFullPath();
         }
     }
 
@@ -1184,7 +1174,7 @@ wxString wxStripMenuCodes(const wxString& in, int flags)
 
     // In some East Asian languages _("&File") translates as "<translation>(&F)"
     // Check for this first, otherwise fall through to the standard situation
-    if (flags & wxStrip_Mnemonics)
+    if ( flags & wxStrip_CJKMnemonics )
     {
         wxString label(in), accel;
         int pos = in.Find('\t');
@@ -1271,15 +1261,15 @@ wxFindMenuItemId(wxFrame *frame,
                  const wxString& menuString,
                  const wxString& itemString)
 {
-#if wxUSE_MENUS
+#if wxUSE_MENUBAR
     wxMenuBar *menuBar = frame->GetMenuBar ();
     if ( menuBar )
         return menuBar->FindMenuItem (menuString, itemString);
-#else // !wxUSE_MENUS
+#else // !wxUSE_MENUBAR
     wxUnusedVar(frame);
     wxUnusedVar(menuString);
     wxUnusedVar(itemString);
-#endif // wxUSE_MENUS/!wxUSE_MENUS
+#endif // wxUSE_MENUBAR/!wxUSE_MENUBAR
 
     return wxNOT_FOUND;
 }
@@ -1442,7 +1432,7 @@ wxVersionInfo wxGetLibraryVersionInfo()
                          wxMINOR_VERSION,
                          wxRELEASE_NUMBER,
                          msg,
-                         wxS("Copyright (c) 1995-2018 wxWidgets team"));
+                         wxS("Copyright (c) 1995-2020 wxWidgets team"));
 }
 
 void wxInfoMessageBox(wxWindow* parent)

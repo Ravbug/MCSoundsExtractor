@@ -505,6 +505,12 @@ wxImage::Scale( int width, int height, wxImageResizeQuality quality ) const
 wxImage wxImage::ResampleNearest(int width, int height) const
 {
     wxImage image;
+
+    const unsigned long old_width  = M_IMGDATA->m_width;
+    const unsigned long old_height = M_IMGDATA->m_height;
+    wxCHECK_MSG(old_width  <= (ULONG_MAX >> 16) &&
+                old_height <= (ULONG_MAX >> 16), image, "image dimension too large");
+
     image.Create( width, height, false );
 
     unsigned char *data = image.GetData();
@@ -526,21 +532,19 @@ wxImage wxImage::ResampleNearest(int width, int height) const
         }
     }
 
-    long old_height = M_IMGDATA->m_height,
-         old_width  = M_IMGDATA->m_width;
-    long x_delta = (old_width<<16) / width;
-    long y_delta = (old_height<<16) / height;
+    const unsigned long x_delta = (old_width  << 16) / width;
+    const unsigned long y_delta = (old_height << 16) / height;
 
     unsigned char* dest_pixel = target_data;
 
-    long y = 0;
-    for ( long j = 0; j < height; j++ )
+    unsigned long y = 0;
+    for (int j = 0; j < height; j++)
     {
         const unsigned char* src_line = &source_data[(y>>16)*old_width*3];
         const unsigned char* src_alpha_line = source_alpha ? &source_alpha[(y>>16)*old_width] : 0 ;
 
-        long x = 0;
-        for ( long i = 0; i < width; i++ )
+        unsigned long x = 0;
+        for (int i = 0; i < width; i++)
         {
             const unsigned char* src_pixel = &src_line[(x>>16)*3];
             const unsigned char* src_alpha_pixel = source_alpha ? &src_alpha_line[(x>>16)] : 0 ;
@@ -1313,8 +1317,8 @@ wxImage wxImage::Rotate90( bool clockwise ) const
 
         for (long j = 0; j < height; j++)
         {
-            const unsigned char *source_data
-                                     = M_IMGDATA->m_data + (j*width + ii)*3;
+            const unsigned char *source_data =
+                M_IMGDATA->m_data + (j*width + ii)*3;
 
             for (long i = ii; i < next_ii; i++)
             {
@@ -1339,7 +1343,6 @@ wxImage wxImage::Rotate90( bool clockwise ) const
     if ( source_alpha )
     {
         unsigned char *alpha_data = image.GetAlpha();
-        unsigned char *target_alpha = 0 ;
 
         for (long ii = 0; ii < width; )
         {
@@ -1351,6 +1354,7 @@ wxImage wxImage::Rotate90( bool clockwise ) const
 
                 for (long i = ii; i < next_ii; i++)
                 {
+                    unsigned char* target_alpha;
                     if ( clockwise )
                     {
                         target_alpha = alpha_data + (i+1)*height - j - 1;
@@ -1929,10 +1933,10 @@ void wxImage::SetRGB( const wxRect& rect_, unsigned char r, unsigned char g, uns
         x2 = rect.GetRight() + 1,
         y2 = rect.GetBottom() + 1;
 
-    unsigned char *data wxDUMMY_INITIALIZE(NULL);
     int x, y, width = GetWidth();
     for (y = y1; y < y2; y++)
     {
+        unsigned char* data;
         data = M_IMGDATA->m_data + (y*width + x1)*3;
         for (x = x1; x < x2; x++)
         {
@@ -2637,7 +2641,7 @@ bool wxImage::SaveFile( const wxString& WXUNUSED_UNLESS_STREAMS(filename),
 #if HAS_FILE_STREAMS
     wxCHECK_MSG( IsOk(), false, wxT("invalid image") );
 
-    ((wxImage*)this)->SetOption(wxIMAGE_OPTION_FILENAME, filename);
+    const_cast<wxImage*>(this)->SetOption(wxIMAGE_OPTION_FILENAME, filename);
 
     wxImageFileOutputStream stream(filename);
 
@@ -2657,7 +2661,7 @@ bool wxImage::SaveFile( const wxString& WXUNUSED_UNLESS_STREAMS(filename),
 #if HAS_FILE_STREAMS
     wxCHECK_MSG( IsOk(), false, wxT("invalid image") );
 
-    ((wxImage*)this)->SetOption(wxIMAGE_OPTION_FILENAME, filename);
+    const_cast<wxImage*>(this)->SetOption(wxIMAGE_OPTION_FILENAME, filename);
 
     wxImageFileOutputStream stream(filename);
 
@@ -3236,8 +3240,6 @@ void wxImage::RotateHue(double angle)
 {
     AllocExclusive();
 
-    unsigned char *srcBytePtr;
-    unsigned char *dstBytePtr;
     unsigned long count;
     wxImage::HSVValue hsv;
     wxImage::RGBValue rgb;
@@ -3246,6 +3248,8 @@ void wxImage::RotateHue(double angle)
     count = M_IMGDATA->m_width * M_IMGDATA->m_height;
     if ( count > 0 && !wxIsNullDouble(angle) )
     {
+        unsigned char* srcBytePtr;
+        unsigned char* dstBytePtr;
         srcBytePtr = M_IMGDATA->m_data;
         dstBytePtr = srcBytePtr;
         do
@@ -3448,16 +3452,17 @@ unsigned long wxImage::CountColours( unsigned long stopafter ) const
 {
     wxHashTable h;
     wxObject dummy;
-    unsigned char r, g, b;
     unsigned char *p;
-    unsigned long size, nentries, key;
+    unsigned long size, nentries;
 
     p = GetData();
-    size = GetWidth() * GetHeight();
+    size = static_cast<unsigned long>(GetWidth()) * GetHeight();
     nentries = 0;
 
     for (unsigned long j = 0; (j < size) && (nentries <= stopafter) ; j++)
     {
+        unsigned char r, g, b;
+        unsigned long key;
         r = *(p++);
         g = *(p++);
         b = *(p++);
@@ -3481,11 +3486,11 @@ unsigned long wxImage::ComputeHistogram( wxImageHistogram &h ) const
 
     h.clear();
 
-    const unsigned long size = GetWidth() * GetHeight();
+    const unsigned long size = static_cast<unsigned long>(GetWidth()) * GetHeight();
 
-    unsigned char r, g, b;
     for ( unsigned long n = 0; n < size; n++ )
     {
+        unsigned char r, g, b;
         r = *p++;
         g = *p++;
         b = *p++;

@@ -31,8 +31,9 @@
 #include "wx/mediactrl.h"
 
 #include "wx/osx/private.h"
+#include "wx/osx/private/available.h"
 
-#if wxOSX_USE_COCOA && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_9 && defined(__LP64__)
+#if wxOSX_USE_COCOA && defined(__LP64__)
     #define wxOSX_USE_AVKIT 1
 #else
     #define wxOSX_USE_AVKIT 0
@@ -162,7 +163,7 @@ private:
         id val = [change objectForKey:NSKeyValueChangeNewKey];
         if ( val != [NSNull null ] )
         {
-            AVPlayerStatus status = (AVPlayerStatus) [ val integerValue];
+            AVPlayerItemStatus status = (AVPlayerItemStatus) [ val integerValue];
 
             switch (status)
             {
@@ -395,17 +396,11 @@ bool wxAVMediaBackend::CreateControl(wxControl* inctrl, wxWindow* parent,
 
     WXWidget view = NULL;
 #if wxOSX_USE_AVKIT
-    if ( NSClassFromString(@"AVPlayerView") )
-    {
-        view = [[wxAVPlayerView alloc] initWithFrame: r player:m_player];
-        [(wxAVPlayerView*) view setControlsStyle:AVPlayerViewControlsStyleNone];
-    }
+    view = [[wxAVPlayerView alloc] initWithFrame: r player:m_player];
+    [(wxAVPlayerView*) view setControlsStyle:AVPlayerViewControlsStyleNone];
+#else
+    view = [[wxAVView alloc] initWithFrame: r player:m_player];
 #endif
-
-    if ( view == NULL )
-    {
-        view = [[wxAVView alloc] initWithFrame: r player:m_player];
-    }
 
 #if wxOSX_USE_IPHONE
     wxWidgetIPhoneImpl* impl = new wxWidgetIPhoneImpl(mediactrl,view);
@@ -500,7 +495,7 @@ bool wxAVMediaBackend::SetPlaybackRate(double dRate)
 
 bool wxAVMediaBackend::SetPosition(wxLongLong where)
 {
-    [m_player seekToTime:CMTimeMakeWithSeconds(where.GetValue() / 1000.0, 1)
+    [m_player seekToTime:CMTimeMakeWithSeconds(where.GetValue() / 1000.0, 60000)
               toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
 
     return true;

@@ -260,7 +260,7 @@ public:
 
     // Set HTML page and display it. !! source is HTML document itself,
     // it is NOT address/filename of HTML document. If you want to
-    // specify document location, use LoadPage() istead
+    // specify document location, use LoadPage() instead
     // Return value : false if an error occurred, true otherwise
     virtual bool SetPage(const wxString& source);
 
@@ -408,6 +408,7 @@ protected:
     void OnMouseMove(wxMouseEvent& event);
     void OnMouseDown(wxMouseEvent& event);
     void OnMouseUp(wxMouseEvent& event);
+    void OnFocusEvent(wxFocusEvent& event);
 #if wxUSE_CLIPBOARD
     void OnKeyUp(wxKeyEvent& event);
     void OnDoubleClick(wxMouseEvent& event);
@@ -502,8 +503,8 @@ protected:
     bool m_makingSelection;
 
 #if wxUSE_CLIPBOARD
-    // time of the last doubleclick event, used to detect tripleclicks
-    // (tripleclicks are used to select whole line):
+    // time of the last double-click event, used to detect triple clicks
+    // (triple clicks are used to select whole line):
     wxMilliClock_t m_lastDoubleClick;
 
     // helper class to automatically scroll the window if the user is selecting
@@ -578,10 +579,10 @@ public:
                     wxHtmlCell *cell, const wxPoint &pt,
                     const wxMouseEvent &ev)
         : wxCommandEvent(commandType, id)
+        , m_mouseEvent(ev)
+        , m_pt(pt)
     {
         m_cell = cell;
-        m_pt = pt;
-        m_mouseEvent = ev;
         m_bLinkWasClicked = false;
     }
 

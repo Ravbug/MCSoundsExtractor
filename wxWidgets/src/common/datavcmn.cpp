@@ -62,6 +62,8 @@ protected:
     void OnIdle( wxIdleEvent &event );
 
 private:
+    bool IsEditorSubControl(wxWindow* win) const;
+
     wxDataViewRenderer     *m_owner;
     wxWindow               *m_editorCtrl;
     bool                    m_finished;
@@ -332,8 +334,13 @@ int wxDataViewModel::Compare( const wxDataViewItem &item1, const wxDataViewItem 
                               unsigned int column, bool ascending ) const
 {
     wxVariant value1,value2;
-    GetValue( value1, item1, column );
-    GetValue( value2, item2, column );
+
+    // Avoid calling GetValue() for the cells that are not supposed to have any
+    // value, this might be unexpected.
+    if ( HasValue(item1, column) )
+        GetValue( value1, item1, column );
+    if ( HasValue(item2, column) )
+        GetValue( value2, item2, column );
 
     if (!ascending)
     {
@@ -1067,7 +1074,7 @@ wxDataViewCustomRendererBase::RenderText(const wxString& text,
     int flags = 0;
     if ( state & wxDATAVIEW_CELL_SELECTED )
         flags |= wxCONTROL_SELECTED;
-    if ( !GetOwner()->GetOwner()->IsEnabled() )
+    if ( !(GetOwner()->GetOwner()->IsEnabled() && GetEnabled()) )
         flags |= wxCONTROL_DISABLED;
 
     // Notice that we intentionally don't use any alignment here: it is not
@@ -1113,8 +1120,13 @@ void wxDataViewEditorCtrlEvtHandler::OnIdle( wxIdleEvent &event )
     if (m_focusOnIdle)
     {
         m_focusOnIdle = false;
-        if (wxWindow::FindFocus() != m_editorCtrl)
+
+        // Ignore focused items within the compound editor control
+        wxWindow* win = wxWindow::FindFocus();
+        if ( !IsEditorSubControl(win) )
+        {
             m_editorCtrl->SetFocus();
+        }
     }
 
     event.Skip();
@@ -1151,6 +1163,14 @@ void wxDataViewEditorCtrlEvtHandler::OnChar( wxKeyEvent &event )
 
 void wxDataViewEditorCtrlEvtHandler::OnKillFocus( wxFocusEvent &event )
 {
+    // Ignore focus changes within the compound editor control
+    wxWindow* win = event.GetWindow();
+    if ( IsEditorSubControl(win) )
+    {
+        event.Skip();
+        return;
+    }
+
     if (!m_finished)
     {
         m_finished = true;
@@ -1158,6 +1178,23 @@ void wxDataViewEditorCtrlEvtHandler::OnKillFocus( wxFocusEvent &event )
     }
 
     event.Skip();
+}
+
+bool wxDataViewEditorCtrlEvtHandler::IsEditorSubControl(wxWindow* win) const
+{
+    // Checks whether the given window belongs to the editor control
+    // (is either the editor itself or a child of the compound editor).
+    while ( win )
+    {
+        if ( win == m_editorCtrl )
+        {
+            return true;
+        }
+
+        win = win->GetParent();
+    }
+
+    return false;
 }
 
 // ---------------------------------------------------------
@@ -1743,7 +1780,7 @@ wxSize wxDataViewSpinRenderer::GetSize() const
     // Allow some space for the spin buttons, which is approximately the size
     // of a scrollbar (and getting pixel-exact value would be complicated).
     // Also add some whitespace between the text and the button:
-    sz.x += wxSystemSettings::GetMetric(wxSYS_VSCROLL_X);
+    sz.x += wxSystemSettings::GetMetric(wxSYS_VSCROLL_X, m_editorCtrl);
     sz.x += GetTextExtent("M").x;
 
     return sz;
@@ -1821,7 +1858,7 @@ wxSize wxDataViewChoiceRenderer::GetSize() const
     // Allow some space for the right-side button, which is approximately the
     // size of a scrollbar (and getting pixel-exact value would be complicated).
     // Also add some whitespace between the text and the button:
-    sz.x += wxSystemSettings::GetMetric(wxSYS_VSCROLL_X);
+    sz.x += wxSystemSettings::GetMetric(wxSYS_VSCROLL_X, m_editorCtrl);
     sz.x += GetTextExtent("M").x;
 
     return sz;
@@ -1971,6 +2008,8 @@ wxSize wxDataViewDateRenderer::GetSize() const
 // ----------------------------------------------------------------------------
 // wxDataViewCheckIconTextRenderer implementation
 // ----------------------------------------------------------------------------
+
+#if defined(wxHAS_GENERIC_DATAVIEWCTRL) || !defined(__WXOSX__)
 
 IMPLEMENT_VARIANT_OBJECT_EXPORTED(wxDataViewCheckIconText, WXDLLIMPEXP_ADV)
 
@@ -2161,6 +2200,8 @@ wxSize wxDataViewCheckIconTextRenderer::GetCheckSize() const
 {
     return wxRendererNative::Get().GetCheckBoxSize(GetView());
 }
+
+#endif // ! native __WXOSX__
 
 //-----------------------------------------------------------------------------
 // wxDataViewListStore
@@ -2449,8 +2490,7 @@ wxDataViewTreeStoreNode::wxDataViewTreeStoreNode(
 
 wxDataViewTreeStoreNode::~wxDataViewTreeStoreNode()
 {
-    if (m_data)
-        delete m_data;
+    delete m_data;
 }
 
 wxDataViewTreeStoreContainerNode::wxDataViewTreeStoreContainerNode(

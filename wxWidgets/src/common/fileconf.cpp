@@ -346,6 +346,7 @@ void wxFileConfig::Init()
     }
 
     m_isDirty = false;
+    m_autosave = true;
 }
 
 // constructor supports creation of wxFileConfig objects of any type
@@ -396,6 +397,9 @@ wxFileConfig::wxFileConfig(const wxString& appName, const wxString& vendorName,
 wxFileConfig::wxFileConfig(wxInputStream &inStream, const wxMBConv& conv)
             : m_conv(conv.Clone())
 {
+    m_isDirty = false;
+    m_autosave = true;
+
     // always local_file when this constructor is called (?)
     SetStyle(GetStyle() | wxCONFIG_USE_LOCAL_FILE);
 
@@ -487,7 +491,8 @@ void wxFileConfig::CleanUp()
 
 wxFileConfig::~wxFileConfig()
 {
-    Flush();
+    if ( m_autosave )
+        Flush();
 
     CleanUp();
 
@@ -1535,16 +1540,17 @@ wxString wxFileConfigGroup::GetFullName() const
 wxFileConfigEntry *
 wxFileConfigGroup::FindEntry(const wxString& name) const
 {
-  size_t i,
+  size_t
        lo = 0,
        hi = m_aEntries.GetCount();
-  int res;
   wxFileConfigEntry *pEntry;
 
   while ( lo < hi ) {
+    size_t i;
     i = (lo + hi)/2;
     pEntry = m_aEntries[i];
 
+    int res;
     #if wxCONFIG_CASE_SENSITIVE
       res = pEntry->Name().compare(name);
     #else
@@ -1565,16 +1571,17 @@ wxFileConfigGroup::FindEntry(const wxString& name) const
 wxFileConfigGroup *
 wxFileConfigGroup::FindSubgroup(const wxString& name) const
 {
-  size_t i,
+  size_t
        lo = 0,
        hi = m_aSubgroups.GetCount();
-  int res;
   wxFileConfigGroup *pGroup;
 
   while ( lo < hi ) {
+    size_t i;
     i = (lo + hi)/2;
     pGroup = m_aSubgroups[i];
 
+    int res;
     #if wxCONFIG_CASE_SENSITIVE
       res = pGroup->Name().compare(name);
     #else

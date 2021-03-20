@@ -98,7 +98,7 @@
      */
     #pragma warning(disable: 4127) /*  conditional expression is constant */
 
-    /* There are too many false positivies for this one, particularly when
+    /* There are too many false positives for this one, particularly when
        using templates like wxVector<T> */
     /* class 'foo' needs to have dll-interface to be used by clients of
        class 'bar'" */
@@ -285,6 +285,26 @@ typedef short int WXTYPE;
     #define wxOVERRIDE
 #endif /*  HAVE_OVERRIDE */
 
+/* same for more C++11 keywords which don't have such historic baggage as
+   override and so can be detected by just testing for C++11 support (which
+   still requires handling MSVS specially, unfortunately) */
+#if __cplusplus >= 201103L || wxCHECK_VISUALC_VERSION(14)
+    #define wxHAS_MEMBER_DEFAULT
+
+    #define wxHAS_NOEXCEPT
+    #define wxNOEXCEPT noexcept
+#else
+    #define wxNOEXCEPT
+#endif
+
+/*
+    Support for nullptr is available since MSVS 2010, even though it doesn't
+    define __cplusplus as a C++11 compiler.
+ */
+#if __cplusplus >= 201103 || wxCHECK_VISUALC_VERSION(10)
+    #define wxHAS_NULLPTR_T
+#endif
+
 /* wxFALLTHROUGH is used to notate explicit fallthroughs in switch statements */
 
 #if __cplusplus >= 201703L
@@ -327,6 +347,9 @@ typedef short int WXTYPE;
     }
 
     #define wx_truncate_cast(t, x) wx_truncate_cast_impl<t>(x)
+
+#elif defined(__clang__)
+    #define wx_truncate_cast(t, x) static_cast<t>(x)
 
 #elif defined(__VISUALC__) && __VISUALC__ >= 1310
     template <typename T, typename X>
@@ -458,23 +481,11 @@ typedef short int WXTYPE;
 
 #ifndef HAVE_WOSTREAM
     /*
-        Mingw <= 3.4 and all versions of Cygwin don't have std::wostream
+        Cygwin is the only platform which doesn't have std::wostream
      */
-    #if (defined(__MINGW32__) && !wxCHECK_GCC_VERSION(4, 0)) || \
-        defined(__CYGWIN__)
-        #define wxNO_WOSTREAM
-    #endif
-
-    /* VC++ doesn't have it in the old iostream library */
-    #if defined(__VISUALC__) && wxUSE_IOSTREAMH
-        #define wxNO_WOSTREAM
-    #endif
-
-    #ifndef wxNO_WOSTREAM
+    #if !defined(__CYGWIN__)
         #define HAVE_WOSTREAM
     #endif
-
-    #undef wxNO_WOSTREAM
 #endif /* HAVE_WOSTREAM */
 
 /*  ---------------------------------------------------------------------------- */
@@ -610,15 +621,11 @@ typedef short int WXTYPE;
  */
 #define wxDEPRECATED(x) wxDEPRECATED_DECL x
 
-#if defined(__GNUC__) && !wxCHECK_GCC_VERSION(3, 4)
-    /*
-        We need to add dummy "inline" to allow gcc < 3.4 to handle the
-        deprecation attribute on the constructors.
-    */
-    #define  wxDEPRECATED_CONSTRUCTOR(x) wxDEPRECATED( inline x)
-#else
-    #define  wxDEPRECATED_CONSTRUCTOR(x) wxDEPRECATED(x)
-#endif
+/*
+    This macro used to be defined differently for gcc < 3.4, but we don't
+    support it any more, so it's just the same thing as wxDEPRECATED now.
+ */
+#define wxDEPRECATED_CONSTRUCTOR(x) wxDEPRECATED(x)
 
 /*
    Macro which marks the function as being deprecated but also defines it
@@ -849,7 +856,7 @@ typedef short int WXTYPE;
 
 /*  where should i put this? we need to make sure of this as it breaks */
 /*  the <iostream> code. */
-#if !wxUSE_IOSTREAMH && defined(__WXDEBUG__)
+#if defined(__WXDEBUG__)
 #    undef wxUSE_DEBUG_NEW_ALWAYS
 #    define wxUSE_DEBUG_NEW_ALWAYS 0
 #endif
@@ -1568,9 +1575,8 @@ enum wxBorder
 
 /*
  * wxRadioBox style flags
+ * These styles are not used in any port.
  */
-/*  should we number the items from left to right or from top to bottom in a 2d */
-/*  radiobox? */
 #define wxRA_LEFTTORIGHT    0x0001
 #define wxRA_TOPTOBOTTOM    0x0002
 
@@ -1926,17 +1932,9 @@ enum wxStandardID
 /*  wxWindowID type                                                              */
 /*  ---------------------------------------------------------------------------- */
 
-/*
- * wxWindowID used to be just a typedef defined here, now it's a class, but we
- * still continue to define it here for compatibility, so that the code using
- * it continues to compile even if it includes just wx/defs.h.
- *
- * Notice that wx/windowid.h can only be included after wxID_XYZ definitions
- * (as it uses them).
- */
-#if defined(__cplusplus) && wxUSE_GUI
-    #include "wx/windowid.h"
-#endif
+/* Note that this is defined even in non-GUI code as the same type is also used
+   for e.g. timer IDs. */
+typedef int wxWindowID;
 
 /*  ---------------------------------------------------------------------------- */
 /*  other constants */
@@ -2718,6 +2716,7 @@ DECLARE_WXCOCOA_OBJC_CLASS(NSArray);
 DECLARE_WXCOCOA_OBJC_CLASS(NSData);
 DECLARE_WXCOCOA_OBJC_CLASS(NSMutableArray);
 DECLARE_WXCOCOA_OBJC_CLASS(NSString);
+DECLARE_WXCOCOA_OBJC_CLASS(NSObject);
 
 #if wxOSX_USE_COCOA
 
@@ -2739,7 +2738,6 @@ DECLARE_WXCOCOA_OBJC_CLASS(NSMenu);
 DECLARE_WXCOCOA_OBJC_CLASS(NSMenuExtra);
 DECLARE_WXCOCOA_OBJC_CLASS(NSMenuItem);
 DECLARE_WXCOCOA_OBJC_CLASS(NSNotification);
-DECLARE_WXCOCOA_OBJC_CLASS(NSObject);
 DECLARE_WXCOCOA_OBJC_CLASS(NSPanel);
 DECLARE_WXCOCOA_OBJC_CLASS(NSResponder);
 DECLARE_WXCOCOA_OBJC_CLASS(NSScrollView);
@@ -2774,6 +2772,8 @@ typedef WX_NSPasteboard OSXPasteboard;
 
 #elif wxOSX_USE_IPHONE
 
+DECLARE_WXCOCOA_OBJC_CLASS(UIMenu);
+DECLARE_WXCOCOA_OBJC_CLASS(UIMenuItem);
 DECLARE_WXCOCOA_OBJC_CLASS(UIWindow);
 DECLARE_WXCOCOA_OBJC_CLASS(UImage);
 DECLARE_WXCOCOA_OBJC_CLASS(UIView);
@@ -2788,10 +2788,11 @@ DECLARE_WXCOCOA_OBJC_CLASS(UIPasteboard);
 typedef WX_UIWindow WXWindow;
 typedef WX_UIView WXWidget;
 typedef WX_UIImage WXImage;
+typedef WX_UIMenu WXHMENU;
 typedef WX_EAGLContext WXGLContext;
 typedef WX_NSString WXGLPixelFormat;
 typedef WX_UIWebView OSXWebViewPtr;
-typedef WX_UIPasteboard OSXPasteboard;
+typedef WX_UIPasteboard WXOSXPasteboard;
 
 #endif
 
@@ -2831,6 +2832,7 @@ WX_MSW_DECLARE_HANDLE(HBITMAP);
 WX_MSW_DECLARE_HANDLE(HIMAGELIST);
 WX_MSW_DECLARE_HANDLE(HGLOBAL);
 WX_MSW_DECLARE_HANDLE(HDC);
+WX_MSW_DECLARE_HANDLE(DPI_AWARENESS_CONTEXT);
 typedef WXHINSTANCE WXHMODULE;
 
 #undef WX_MSW_DECLARE_HANDLE
@@ -2994,24 +2996,30 @@ typedef const void* WXWidget;
 /*  macros to define a class without copy ctor nor assignment operator */
 /*  --------------------------------------------------------------------------- */
 
+#if defined(__cplusplus) && (__cplusplus >= 201103L || wxCHECK_VISUALC_VERSION(14))
+    #define wxMEMBER_DELETE = delete
+#else
+    #define wxMEMBER_DELETE
+#endif
+
 #define wxDECLARE_NO_COPY_CLASS(classname)      \
     private:                                    \
-        classname(const classname&);            \
-        classname& operator=(const classname&)
+        classname(const classname&) wxMEMBER_DELETE; \
+        classname& operator=(const classname&) wxMEMBER_DELETE
 
 #define wxDECLARE_NO_COPY_TEMPLATE_CLASS(classname, arg)  \
     private:                                              \
-        classname(const classname<arg>&);                 \
-        classname& operator=(const classname<arg>&)
+        classname(const classname<arg>&) wxMEMBER_DELETE; \
+        classname& operator=(const classname<arg>&) wxMEMBER_DELETE
 
 #define wxDECLARE_NO_COPY_TEMPLATE_CLASS_2(classname, arg1, arg2) \
     private:                                                      \
-        classname(const classname<arg1, arg2>&);                  \
-        classname& operator=(const classname<arg1, arg2>&)
+        classname(const classname<arg1, arg2>&) wxMEMBER_DELETE; \
+        classname& operator=(const classname<arg1, arg2>&) wxMEMBER_DELETE
 
 #define wxDECLARE_NO_ASSIGN_CLASS(classname)    \
     private:                                    \
-        classname& operator=(const classname&)
+        classname& operator=(const classname&) wxMEMBER_DELETE
 
 /* deprecated variants _not_ requiring a semicolon after them */
 #define DECLARE_NO_COPY_CLASS(classname) \

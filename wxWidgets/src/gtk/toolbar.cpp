@@ -181,7 +181,18 @@ image_expose_event(GtkWidget* widget, GdkEventExpose*, wxToolBarTool* tool)
 #endif
 {
 #ifdef __WXGTK3__
-    const wxBitmap& bitmap = tool->GetBitmap();
+    wxBitmap bitmap(tool->GetNormalBitmap());
+    if (!tool->IsEnabled())
+    {
+        wxBitmap disabled(tool->GetDisabledBitmap());
+        // if no disabled bitmap and normal bitmap is scaled
+        if (!disabled.IsOk() && bitmap.IsOk() && bitmap.GetScaleFactor() > 1)
+        {
+            // make scaled disabled bitmap from normal one
+            disabled = bitmap.CreateDisabled();
+        }
+        bitmap = disabled;
+    }
     if (!bitmap.IsOk() || (tool->IsEnabled() && bitmap.GetScaleFactor() <= 1))
         return false;
 #else
@@ -276,11 +287,10 @@ void wxToolBarTool::SetImage()
 #ifdef __WXGTK3__
     if (bitmap.GetScaleFactor() > 1)
     {
-        // Use a scaled pixbuf with the correct logical size. It will be used
-        // for the disabled state if no disabled bitmap is specifed, otherwise
-        // the original will be used by our "draw" signal handler.
-        GdkPixbuf* pixbuf = gdk_pixbuf_scale_simple(bitmap.GetPixbuf(),
-            bitmap.GetScaledWidth(), bitmap.GetScaledHeight(), GDK_INTERP_BILINEAR);
+        // Use a placeholder pixbuf with the correct size.
+        // The original will be used by our "draw" signal handler.
+        GdkPixbuf* pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, false, 8,
+            bitmap.GetScaledWidth(), bitmap.GetScaledHeight());
         gtk_image_set_from_pixbuf(GTK_IMAGE(image), pixbuf);
         g_object_unref(pixbuf);
     }

@@ -13,6 +13,13 @@
 #ifndef _WX_MSW_CHKCONF_H_
 #define _WX_MSW_CHKCONF_H_
 
+/* ensure that CPU parameter is specified (only nmake .vc makefile) */
+#ifdef _MSC_VER
+    #if defined(_WIN64) && defined(TARGET_CPU_COMPFLAG) && (TARGET_CPU_COMPFLAG == 0)
+        #error CPU must be defined
+    #endif
+#endif
+
 /* ensure that MSW-specific settings are defined */
 #ifndef wxUSE_ACTIVEX
 #    ifdef wxABORT_ON_CONFIG_ERROR
@@ -118,6 +125,14 @@
 #    endif
 #endif  /* wxUSE_UXTHEME */
 
+#ifndef wxUSE_WINSOCK2
+#    ifdef wxABORT_ON_CONFIG_ERROR
+#        error "wxUSE_WINSOCK2 must be defined."
+#    else
+#        define wxUSE_WINSOCK2 0
+#    endif
+#endif  /* wxUSE_WINSOCK2 */
+
 /*
  * Unfortunately we can't use compiler TLS support if the library can be used
  * inside a dynamically loaded DLL under Windows XP, as this can result in hard
@@ -166,14 +181,6 @@
 
 #   undef  wxUSE_DEBUG_NEW_ALWAYS
 #   define wxUSE_DEBUG_NEW_ALWAYS          0
-
-/* some Cygwin versions don't have wcslen */
-#   if defined(__CYGWIN__) || defined(__CYGWIN32__)
-#   if ! ((__GNUC__>2) ||((__GNUC__==2) && (__GNUC_MINOR__>=95)))
-#       undef wxUSE_WCHAR_T
-#       define wxUSE_WCHAR_T 0
-#   endif
-#endif
 
 #endif /* __GNUWIN32__ */
 
@@ -381,6 +388,15 @@
 #           define wxUSE_DRAG_AND_DROP 0
 #       endif
 #   endif
+
+#   if wxUSE_ACCESSIBILITY
+#       ifdef wxABORT_ON_CONFIG_ERROR
+#           error "wxUSE_ACCESSIBILITY requires wxUSE_OLE"
+#       else
+#           undef wxUSE_ACCESSIBILITY
+#           define wxUSE_ACCESSIBILITY 0
+#       endif
+#   endif
 #endif /* !wxUSE_OLE */
 
 #if !wxUSE_ACTIVEX
@@ -436,6 +452,14 @@
 #           define wxUSE_FSWATCHER 0
 #       endif
 #   endif
+#   if wxUSE_JOYSTICK
+#       ifdef wxABORT_ON_CONFIG_ERROR
+#           error "wxJoystick requires wxThread under MSW"
+#       else
+#           undef wxUSE_JOYSTICK
+#           define wxUSE_JOYSTICK 0
+#       endif
+#   endif
 #endif /* !wxUSE_THREADS */
 
 
@@ -453,6 +477,16 @@
 #if defined(__WXUNIVERSAL__) && wxUSE_POSTSCRIPT_ARCHITECTURE_IN_MSW && !wxUSE_POSTSCRIPT
 #   undef wxUSE_POSTSCRIPT
 #   define wxUSE_POSTSCRIPT 1
+#endif
+
+/*
+    IPv6 support requires winsock2.h, but the default of wxUSE_WINSOCK2 is 0.
+    Don't require changing it explicitly and just turn it on automatically if
+    wxUSE_IPV6 is on.
+ */
+#if wxUSE_IPV6 && !wxUSE_WINSOCK2
+    #undef wxUSE_WINSOCK2
+    #define wxUSE_WINSOCK2 1
 #endif
 
 #endif /* _WX_MSW_CHKCONF_H_ */

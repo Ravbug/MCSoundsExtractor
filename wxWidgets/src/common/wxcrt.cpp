@@ -737,7 +737,7 @@ size_t wxStrlen(const wxChar32 *s )
 {
     if (!s) return 0;
     size_t i=0;
-    while (*s!=0) { ++i; ++s; };
+    while (*s!=0) { ++i; ++s; }
     return i;
 }
 
@@ -908,7 +908,7 @@ wxCRT_StrtoullBase(const T* nptr, T** endptr, int base, T* sign)
                 {
                     // Then it's an error.
                     if ( endptr )
-                        *endptr = (T*) nptr;
+                        *endptr = const_cast<T*>(nptr);
                     errno = EINVAL;
                     return sum;
                 }

@@ -15,6 +15,8 @@
 #include "wx/bmpbuttn.h"
 #include "wx/colourdata.h"
 
+class wxColourDialogEvent;
+
 //-----------------------------------------------------------------------------
 // wxGenericColourButton: a button which brings up a wxColourDialog
 //-----------------------------------------------------------------------------
@@ -31,7 +33,7 @@ public:
                           const wxSize& size = wxDefaultSize,
                           long style = wxCLRBTN_DEFAULT_STYLE,
                           const wxValidator& validator = wxDefaultValidator,
-                          const wxString& name = wxColourPickerWidgetNameStr)
+                          const wxString& name = wxASCII_STR(wxColourPickerWidgetNameStr))
     {
         Create(parent, id, col, pos, size, style, validator, name);
     }
@@ -57,7 +59,7 @@ public:
                 const wxSize& size = wxDefaultSize,
                 long style = wxCLRBTN_DEFAULT_STYLE,
                 const wxValidator& validator = wxDefaultValidator,
-                const wxString& name = wxColourPickerWidgetNameStr);
+                const wxString& name = wxASCII_STR(wxColourPickerWidgetNameStr));
 
     void OnButtonClick(wxCommandEvent &);
 
@@ -75,6 +77,8 @@ protected:
     static wxColourData ms_data;
 
 private:
+    void OnColourChanged(wxColourDialogEvent& event);
+
     wxDECLARE_DYNAMIC_CLASS(wxGenericColourButton);
 };
 

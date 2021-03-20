@@ -98,6 +98,10 @@ wxDEFINE_EVENT( wxEVT_DIRCTRL_FILEACTIVATED, wxTreeEvent );
 // wxGetAvailableDrives, for WINDOWS, OSX, UNIX (returns "/")
 // ----------------------------------------------------------------------------
 
+// since the macOS implementation needs objective-C this is dirdlg.mm
+#ifdef __WXOSX__
+extern size_t wxGetAvailableDrives(wxArrayString &paths, wxArrayString &names, wxArrayInt &icon_ids);
+#else
 size_t wxGetAvailableDrives(wxArrayString &paths, wxArrayString &names, wxArrayInt &icon_ids)
 {
 #ifdef wxHAS_FILESYSTEM_VOLUMES
@@ -156,38 +160,6 @@ size_t wxGetAvailableDrives(wxArrayString &paths, wxArrayString &names, wxArrayI
     }
 #endif // __WIN32__/!__WIN32__
 
-#elif defined(__WXMAC__) && wxOSX_USE_COCOA_OR_CARBON
-
-    ItemCount volumeIndex = 1;
-    OSErr err = noErr ;
-
-    while( noErr == err )
-    {
-        HFSUniStr255 volumeName ;
-        FSRef fsRef ;
-        FSVolumeInfo volumeInfo ;
-        err = FSGetVolumeInfo(0, volumeIndex, NULL, kFSVolInfoFlags , &volumeInfo , &volumeName, &fsRef);
-        if( noErr == err )
-        {
-            wxString path = wxMacFSRefToPath( &fsRef ) ;
-            wxString name = wxMacHFSUniStrToString( &volumeName ) ;
-
-            if ( (volumeInfo.flags & kFSVolFlagSoftwareLockedMask) || (volumeInfo.flags & kFSVolFlagHardwareLockedMask) )
-            {
-                icon_ids.Add(wxFileIconsTable::cdrom);
-            }
-            else
-            {
-                icon_ids.Add(wxFileIconsTable::drive);
-            }
-            // todo other removable
-
-            paths.Add(path);
-            names.Add(name);
-            volumeIndex++ ;
-        }
-    }
-
 #elif defined(__UNIX__)
     paths.Add(wxT("/"));
     names.Add(wxT("/"));
@@ -199,6 +171,7 @@ size_t wxGetAvailableDrives(wxArrayString &paths, wxArrayString &names, wxArrayI
     wxASSERT_MSG( (paths.GetCount() == icon_ids.GetCount()), wxT("Wrong number of icons for available drives."));
     return paths.GetCount();
 }
+#endif
 
 // ----------------------------------------------------------------------------
 // wxIsDriveAvailable
@@ -283,9 +256,9 @@ static int wxCMPFUNC_CONV wxDirCtrlStringCompareFunction(const wxString& strFirs
 
 wxDirItemData::wxDirItemData(const wxString& path, const wxString& name,
                              bool isDir)
+    : m_path(path)
+    , m_name(name)
 {
-    m_path = path;
-    m_name = name;
     /* Insert logic to detect hidden files here
      * In UnixLand we just check whether the first char is a dot
      * For FileNameFromPath read LastDirNameInThisPath ;-) */
@@ -694,7 +667,7 @@ void wxGenericDirCtrl::PopulateNode(wxTreeItemId parentId)
 
     wxASSERT(data);
 
-    wxString search,path,filename;
+    wxString path;
 
     wxString dirName(data->m_path);
 
@@ -996,7 +969,7 @@ wxString wxGenericDirCtrl::GetPath(wxTreeItemId itemId) const
     const wxDirItemData*
         data = static_cast<wxDirItemData*>(m_treeCtrl->GetItemData(itemId));
 
-    return data->m_path;
+    return data ? data->m_path : wxString();
 }
 
 wxString wxGenericDirCtrl::GetPath() const
@@ -1222,7 +1195,7 @@ void wxGenericDirCtrl::DoResize()
         wxSize filterSz ;
         if (m_filterListCtrl)
         {
-            filterSz = m_filterListCtrl->GetSize();
+            filterSz = m_filterListCtrl->GetBestSize();
             sz.y -= (filterSz.y + verticalSpacing);
         }
         m_treeCtrl->SetSize(0, 0, sz.x, sz.y);
@@ -1441,10 +1414,10 @@ public:
 };
 
 wxFileIconsTable::wxFileIconsTable()
+    : m_size(16, 16)
 {
     m_HashTable = NULL;
     m_smallImageList = NULL;
-    m_size = wxSize(16, 16);
 }
 
 wxFileIconsTable::~wxFileIconsTable()
@@ -1454,7 +1427,7 @@ wxFileIconsTable::~wxFileIconsTable()
         WX_CLEAR_HASH_TABLE(*m_HashTable);
         delete m_HashTable;
     }
-    if (m_smallImageList) delete m_smallImageList;
+    delete m_smallImageList;
 }
 
 // delayed initialization - wait until first use (wxArtProv not created yet)
