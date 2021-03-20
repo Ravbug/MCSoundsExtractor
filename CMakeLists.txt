@@ -8,7 +8,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$<CONFIGURATION>)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$<CONFIGURATION>)
 
 file(GLOB SRC "src/*.cpp" "src/*.hpp" "src/*.h")
-add_executable("${PROJECT_NAME}" WIN32 ${SRC} src/wxmac.icns)
+if(APPLE)
+    set(macfiles "src/wxmac.icns" CACHE INERNAL "")
+endif()
+add_executable("${PROJECT_NAME}" WIN32 ${SRC} ${macfiles})
 
 #wxwidgets
 set(wxBUILD_SHARED OFF CACHE INTERNAL "")
