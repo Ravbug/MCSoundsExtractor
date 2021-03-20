@@ -15,28 +15,14 @@ use the legacy (unmaintained) Java version here: [https://github.com/Ravbug/MCSo
 5. Once the program completes, go to the folder you picked as the output folder. Inside it you will find a folder named ``minecraft``, with subfolder ``sounds``, with multiple subdirectories. Inside these are .ogg audio files. If you cannot open .ogg audio, I recommend the [MediaHuman Audio converter](https://www.mediahuman.com/audio-converter/) which can batch-convert them into .wav, .mp3, .acc, among others.
 
 ## Compiling it yourself
-Clone the repository as a zip, extract it, and then follow the steps for your OS below.
-### macOS
-1. Open `mac.xcodeproj` in Xcode.
-2. Select `Minecraft Sounds Extractor` from the target selector.
-3. Press Build (cmd + b). Everything will compile in one step. 
+Clone the repository as a zip, extract it, then use CMake:
+```sh
+mkdir -p build && cd build
+cmake ..
+cmake --build . --config Release --target install
+```
+Note for Linux users: You need a C++ compiler and the gtk3-dev package for your system.
 
-### Windows
-1. Open `wxWidgets\build\msw\` and find the SLN that most closely matches your Visual Studio version. For example, open `wx_vc15.sln` if you are using Visual Studio 2015 or later.
-2. Select the configuration you want to build (example: `Debug x86`), and press `Build -> Build Solution` (ctrl + shift + B). 
-3. Repeat step 2 for each configuration you want to use. I recommend compiling Debug and Release for x64 at the very least.
-   - Alternatively, to build all the possible configurations, go to Build → Batch Build, Select All, and press Build, 
-4. In the repository root folder, open `windows.sln` in the template root, select your configuration, and build.
-
-### Linux
-1. Ensure you have the required dependencies. If you do not have them, the setup will fail (but it will tell you which one you are missing). Commonly missing packages:
-   - autoconf
-   - g++ (at least version 8 for C++17 support, if this is a separate package, use `make linux-pkg CC=g++-8`
-   - gtk3 dev
-   - make
-   - If you install a library but the setup still fails, try installing the development version of the package. 
-2. Open a shell window in the template folder root. 
-3. Run `make linux-pkg`. This will compile the library, the app, and generate an AppImage. The object files and the executable will be located inside `linux-build/` which is created when you compile for the first time. The library files will be located inside `wxWidgets/build/linux`. The AppImage will be placed in the repository root directory.
 
 **To make release builds, refer to this page:** [https://github.com/Ravbug/wxWidgetsTemplate/wiki/Creating-Release-Builds](https://github.com/Ravbug/wxWidgetsTemplate/wiki/Creating-Release-Builds)
 

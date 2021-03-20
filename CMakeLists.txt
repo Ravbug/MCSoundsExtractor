@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.17)   
 
-project("MCSoundsExtractor") 
+project("MCSoundsExtractor")
+set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$<CONFIGURATION>)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$<CONFIGURATION>)
 
 file(GLOB SRC "src/*.cpp" "src/*.hpp" "src/*.h")
 add_executable("${PROJECT_NAME}" WIN32 ${SRC})
