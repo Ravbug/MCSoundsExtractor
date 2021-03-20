@@ -4,10 +4,11 @@ project("MCSoundsExtractor")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(GLOB MY_SOURCES "src/*.cpp" "src/*.hpp" "src/*.h")
-add_executable("${PROJECT_NAME}" ${MY_SOURCES})
+file(GLOB SRC "src/*.cpp" "src/*.hpp" "src/*.h")
+add_executable("${PROJECT_NAME}" WIN32 ${SRC})
 
 #wxwidgets
+set(wxBUILD_SHARED OFF CACHE INTERNAL "")
 add_subdirectory("wxWidgets")
 
 #rapidjson
@@ -16,6 +17,7 @@ target_include_directories("${PROJECT_NAME}" PUBLIC "rapidjson/include")
 target_link_libraries("${PROJECT_NAME}"
     PUBLIC 
     wx::base
+	wx::core
 )
 
 # mac app
@@ -25,3 +27,5 @@ set_target_properties("${PROJECT_NAME}" PROPERTIES
 )
 set_source_files_properties("src/wxmac.icns" PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
+# windows app
+set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DPI_AWARE "PerMonitor")

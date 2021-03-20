@@ -166,7 +166,7 @@ void mainFrame::OnExit(wxCommandEvent& event)
  */
 void mainFrame::OnAbout(wxCommandEvent& event)
 {
-    wxMessageBox("This program extracts the obfuscated and hashed sound files\nfrom your Minecraft Java Edition install.\nVisit github.com/ravbug/MCsoundsExtractorCPP for information and updates.\n\nCreated by Ravbug, written in C++. Uses wxWidgets, boost, and RapidJSON libraries.","About Minecraft Sounds Extractor", wxOK | wxICON_INFORMATION);
+    wxMessageBox("This program extracts the obfuscated and hashed sound files\nfrom your Minecraft Java Edition install.\nVisit github.com/ravbug/MCsoundsExtractorCPP for information and updates.\n\nCreated by Ravbug, written in C++. Uses wxWidgets and RapidJSON libraries.","About Minecraft Sounds Extractor", wxOK | wxICON_INFORMATION);
 }
 
 /**
