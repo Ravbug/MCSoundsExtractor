@@ -8,7 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$<CONFIGURATION>)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$<CONFIGURATION>)
 
 file(GLOB SRC "src/*.cpp" "src/*.hpp" "src/*.h")
-add_executable("${PROJECT_NAME}" WIN32 ${SRC})
+add_executable("${PROJECT_NAME}" WIN32 ${SRC} src/wxmac.icns)
 
 #wxwidgets
 set(wxBUILD_SHARED OFF CACHE INTERNAL "")
@@ -28,7 +28,13 @@ set_target_properties("${PROJECT_NAME}" PROPERTIES
     MACOSX_BUNDLE ON
     MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_LIST_DIR}/src/Info.plist"
 )
-set_source_files_properties("src/wxmac.icns" PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+set_source_files_properties("${CMAKE_CURRENT_LIST_DIR}/src/wxmac.icns" PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+INSTALL(CODE 
+		"include(BundleUtilities)
+		fixup_bundle(\"${CMAKE_INSTALL_PREFIX}/$<CONFIGURATION>/${APPNAME}.app\" \"\" \"\")
+		" 
+		COMPONENT Runtime
+	)
 
 # windows app
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DPI_AWARE "PerMonitor")

@@ -23,8 +23,5 @@ cmake --build . --config Release --target install
 ```
 Note for Linux users: You need a C++ compiler and the gtk3-dev package for your system.
 
-
-**To make release builds, refer to this page:** [https://github.com/Ravbug/wxWidgetsTemplate/wiki/Creating-Release-Builds](https://github.com/Ravbug/wxWidgetsTemplate/wiki/Creating-Release-Builds)
-
 ## Issue reporting
 Use the issues section on this repository to report bugs. Include as many details as you can.
