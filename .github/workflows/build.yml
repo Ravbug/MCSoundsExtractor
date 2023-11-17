@@ -1,0 +1,52 @@
+name: Build-Release
+on: [push, pull_request]
+jobs:
+  build-mac:
+    name: Build App for macOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Configure
+        run: |
+            mkdir -p build
+            cd build
+            cmake -G "Xcode" -DCMAKE_BUILD_TYPE=Release ..
+      - name: Build 
+        run: |
+            cd build
+            cmake --build . --config Release --target install
+      - name: Archive
+        run: |
+            cd build/release
+            zip -r -9 MCSoundsExtractor.zip MCSoundsExtractor.app/
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: MCSoundsExtractor-macOS
+          path: build/release/MCSoundsExtractor.zip
+                
+  build-windows:
+    name: Build App for Windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Configure
+        run: |
+            mkdir build
+            cd build
+            cmake -DCMAKE_BUILD_TYPE=Release .. ;
+      - name: Build
+        run: |
+            cd build
+            cmake --build . --config release --target install
+      - name: Archive and upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: MCSoundsExtractor-win64
+          path: build\release\MCSoundsExtractor.exe
