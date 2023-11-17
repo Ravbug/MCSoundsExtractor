@@ -88,7 +88,7 @@ mainFrame::mainFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	gb_main->Add( btn_chooseOutDir, wxGBPosition( 3, 1 ), wxGBSpan( 1, 1 ), wxALL, 5 );
 
     //minecraft version label
-	label_3 = new wxStaticText( this, wxID_ANY, wxT("Minecraft Version"), wxDefaultPosition, wxDefaultSize, 0 );
+	label_3 = new wxStaticText( this, wxID_ANY, wxT("Sounds Version"), wxDefaultPosition, wxDefaultSize, 0 );
 	label_3->Wrap( -1 );
 	gb_main->Add( label_3, wxGBPosition( 4, 0 ), wxGBSpan( 1, 1 ), wxALL, 5 );
 
