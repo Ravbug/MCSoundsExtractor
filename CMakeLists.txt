@@ -61,7 +61,6 @@ elseif(LINUX)
         " 
         COMPONENT Runtime
         )
-    endif()
 endif()
 # windows app
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DPI_AWARE "PerMonitor")
