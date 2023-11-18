@@ -1,12 +1,39 @@
 name: Build-Release
 on: [push, pull_request]
 jobs:
+  build-linux:
+    name: Build App for Linux x64
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Install Dependencies
+        run: |
+            sudo apt-get update
+            sudo apt-get install cmake ninja-build libx11-dev libgtk-3-dev fuse libfuse2 -y --no-install-recommends
+      - name: Configure
+        run: |
+            mkdir -p build
+            cd build
+            cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release ..
+      - name: Build
+        run: |
+            cd build
+            cmake --build . --config release --target install
+      - name: Archive and upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name:  MCSoundsExtractor-Linux64
+          path:  build/Release/MCSoundsExtractor.AppImage
+
   build-mac:
     name: Build App for macOS
     runs-on: macos-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: true
       - name: Configure
@@ -23,7 +50,7 @@ jobs:
             cd build/release
             zip -r -9 MCSoundsExtractor.zip MCSoundsExtractor.app/
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: MCSoundsExtractor-macOS
           path: build/release/MCSoundsExtractor.zip
@@ -33,7 +60,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: true
       - name: Configure
@@ -46,7 +73,7 @@ jobs:
             cd build
             cmake --build . --config release --target install
       - name: Archive and upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: MCSoundsExtractor-win64
           path: build\release\MCSoundsExtractor.exe

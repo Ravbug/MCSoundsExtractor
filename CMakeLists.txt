@@ -48,6 +48,20 @@ if(APPLE)
 		" 
 		COMPONENT Runtime
 	)
+elseif(LINUX)
+    INSTALL(CODE 
+        "include(${CMAKE_CURRENT_SOURCE_DIR}/appimage.cmake)
+        make_appimage(
+            EXE \"${CMAKE_INSTALL_PREFIX}/$<CONFIGURATION>/${PROJECT_NAME}\"
+            NAME \"${PROJECT_NAME}\"
+            ICON \"${CMAKE_CURRENT_SOURCE_DIR}/source/wxlin.xpm\"
+            OUTPUT_NAME \"${CMAKE_INSTALL_PREFIX}/$<CONFIGURATION>/${PROJECT_NAME}.AppImage\"
+            ASSETS \"\"
+        )
+        " 
+        COMPONENT Runtime
+        )
+    endif()
 endif()
 # windows app
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DPI_AWARE "PerMonitor")
